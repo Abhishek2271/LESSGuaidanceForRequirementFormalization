@@ -1,0 +1,360 @@
+Project Egas {
+     RequirementClassification:[
+        SafetyGoal
+        SafetyFunctional
+        SafetyTechnical	    
+        SecurityGoal
+	    SecurityFunctional
+	    SecurityTechnical
+    ],
+    
+    Variables: [
+        plausibility_checks,   
+        faults,
+		unintended_acceleration,
+        errors,
+		high_driving_torque
+    ],
+
+    
+    Objects: [       
+      acceleration,
+      deceleration,
+      plausibility,
+      torque_signals_affecting_requirements_of_other_ECUs,
+      signals,
+      state,
+      states,
+      sensor_signals,
+      torque_signals,
+      Driving_Torque,
+	  accessing,      
+      entities,
+      being_transmitted,
+      signals_in_white_list 
+      integrity,
+      Lamp_switch_on_request,
+      received_data,
+	  MAC,
+      request,
+      white_list  
+    ],
+
+    Verbs: [
+       protect,
+       monitor,
+       detect,
+       confirm,
+       drop,
+       generate,
+       transmit,
+	   verify,
+       generated,
+       transfer,
+       verifying
+    ],
+
+    ObjectAttribute:[       /*KB*/
+        dangerous,
+        unintended,
+        loss,
+        of,
+        internal,
+        appropriate,
+        undesired,
+        safe,
+        High,
+		unauthenticated,
+		malicious,
+		detected,
+		spoofed,
+		spoofing
+    ],
+    
+	Conditions: [
+         
+       
+    ],
+	
+    Components: [
+       System,
+       Drive_Pedal,
+       Throttle_Valve,
+       Engine_Control_Unit,
+       Function_Controller,       
+       sensor_system,
+       signal_compound,
+       other_ECUs,
+       Mensor,
+	   Navigation_ECU,
+       Cellular_network,
+       Gateway,
+       Power_Switch,
+       Body_Control_ECU,
+       control_signals,
+       Headlamp_system,
+	   actuator
+    ],
+	
+    States: [
+       safe_state
+    ],
+
+    
+Requirements: [
+
+    /* Prevent dangerous unintended acceleration */
+
+    Requirement: Req_SZ_01 
+	RequirementClassification: SafetyGoal
+	{
+
+        THE System SHALL PREVENT dangerous unintended acceleration 
+    }
+
+    /* Prevent dangerous unintended loss of acceleration */
+    Requirement: Req_SZ_02 
+	RequirementClassification: SafetyGoal
+	{
+        THE System SHALL PREVENT unintended loss of acceleration
+    }  
+	
+    /* Prevent dangerous unintended deceleration */
+    Requirement: Req_SZ_03 
+	RequirementClassification: SafetyGoal
+	{
+        THE System SHALL PREVENT dangerous unintended deceleration  
+    }    
+	
+	/* Prevent dangerous unintended loss of deceleration */
+    Requirement: Req_SZ_04 
+	RequirementClassification: SafetyGoal
+	{
+        THE System SHALL PREVENT unintended loss of deceleration  
+	}
+
+    /* The Drive Pedal shall check the sensor signals of the Drive Pedal for plausibility. */
+    Requirement: SReq_01 
+	RequirementClassification: SafetyFunctional{
+        
+        THE Drive_Pedal SHALL CHECK THE sensor_signals OF THE Drive_Pedal FOR plausibility
+    }
+	
+    /* The Drive Pedal shall check its internal sensor signals for plausibility. */
+    Requirement: SReq_01 
+	RequirementClassification: SafetyFunctional
+	{
+        THE Drive_Pedal SHALL CHECK internal sensor_signals OF THE Drive_Pedal FOR plausibility
+    }
+
+    /* The Throttle Valve shall check the sensor signals of the Throttle Valve for plausibility. */
+    Requirement: SReq_02 
+	RequirementClassification: SafetyFunctional
+	{
+        THE Throttle_Valve SHALL CHECK THE sensor_signals OF THE Throttle_Valve FOR plausibility
+    }
+	
+    /* The Throttle Valve shall check its internal sensor signals for plausibility. */
+    Requirement: SReq_02 
+	RequirementClassification: SafetyFunctional
+	{
+
+        THE Throttle_Valve SHALL CHECK THE internal sensor_signals OF THE Throttle_Valve FOR plausibility
+    }
+
+    /* The Engine Control Unit shall detect faults in the Sensor System by using appropriate plausibility checks. */
+    Requirement: SReq_03 
+	RequirementClassification: SafetyFunctional
+	{
+        THE Engine_Control_Unit SHALL DETECT THE faults OF THE sensor_system BY USING appropriate plausibility_checks    
+    }
+	
+	Requirement: SReq_04
+	RequirementClassification:	SafetyFunctional
+	{
+		THE Engine_Control_Unit SHALL protect THE torque_signals_affecting_requirements_of_other_ECUs BY USING A signal_compound
+	}
+
+    /* The Engine Control Unit shall detect errors in the Actuator by using appropriate plausibility checks. */
+    Requirement: SReq_05 
+	RequirementClassification: SafetyFunctional
+	{
+		THE Engine_Control_Unit SHALL DETECT THE errors IN THE actuator BY USING appropriate plausibility_checks  
+    }    
+
+    Requirement: SReq_05a 
+	RequirementClassification: SafetyFunctional
+	{
+        THE Engine_Control_Unit SHALL CHECK internal signals OF THE actuator FOR plausibility
+    }
+
+    /* The Engine Control Unit shall detect and confirm Undesired States of a High Driving Torque or an Unintended Acceleration. */
+	/*NOT PRESENT IN EGAS ALL_GROUND_TRUTH*/
+    Requirement: SReq_06a 
+	RequirementClassification: SafetyFunctional
+	{
+        THE Engine_Control_Unit SHALL detect AND confirm undesired state OF High Driving_Torque   
+	}
+
+    /* The Engine Control Unit shall detect and confirm Undesired States of an Unintended Acceleration. */
+    Requirement: SReq_06a2 
+	RequirementClassification: SafetyFunctional
+	{
+        THE Engine_Control_Unit SHALL detect AND confirm unintended acceleration
+    }    
+
+    /* In case of detected and confirmed Undesired State of a High Driving Torque or an Unintended Acceleration the Engine Control Unit shall switch into a safe state. */ 
+    Requirement: SReq_06b 
+	RequirementClassification: SafetyFunctional
+	{
+
+        /*IF Undesired state OF High_Driving_Torque Engine_Control_Unit SHALL SWITCH TO safe state.*/
+
+        IF undesired High Driving_Torque THE Engine_Control_Unit SHALL SWITCH TO safe_state.
+    }
+	
+    Requirement: SReq_06b2 	
+	RequirementClassification: SafetyFunctional
+	/*NOT PRESENT IN EGAS ALL_GROUND_TRUTH*/
+	{        
+        IF acceleration IS unintended THE Engine_Control_Unit SHALL SWITCH TO safe_state.
+    } 
+
+    /* The Engine Control Unit shall monitor the Function Controller. */
+    Requirement: SReq_07 	
+	RequirementClassification: SafetyFunctional{
+
+        THE Engine_Control_Unit SHALL monitor THE Function_Controller. 
+    }
+	
+	/**NOT IN EGAS_20220729_samoconsult_20220816_en SO ADDED FROM EGAS_ALL_GROUND_TRUTH**/	
+    /*removed because this is same as SReq_04
+	Requirement: SReq_04_HSC 
+	RequirementClassification: SafetyFunctional
+	{
+        THE Engine_Control_Unit SHALL protect THE torque_signals WHICH affect requirements_ OF_other_ECUs BY USING A signal_compound
+    }
+	*/	
+	
+	
+	/***********FROM the second part; Iso_20220729_samoconsult_20220816************/
+	
+	Requirement: Req_SEC_ISO10 
+	RequirementClassification: SecurityGoal
+	{	
+		/*Lamp switch on request integrity shall be protected against spoofing */ 
+		THE System SHALL protect THE integrity OF Lamp_switch_on_request AGAINST spoofing /*KB*/
+		
+		/* Actuator is missing from the requirement -> should always be included */ 
+
+	},
+	
+	
+	/*Requirement: Req_SEC_ISO20 */
+	/*RequirementClassification: SecurityFunctional*/
+	/*{ */
+		/* AN EXAMPLE OF WHAT IS NOT POSSIBLE: HERE, THE CONDITIONAL "IF" CANNOT BE AFTER THE OBLIGATION BUT THE REQUIREMENT CANNOT BE EXPRESSED OTHERWISE. */
+		/*SO AN IMPLEMENTATION IS NOT POSSIBLE FROM CURRENT GRAMMAR*/
+		
+		/*THE Navigation_ECU SHALL verify IF received_data WAS sent from valid entity*/
+
+	/*},*/
+
+	Requirement: Req_SEC_ISO30 
+	RequirementClassification: SecurityFunctional
+	{
+		/* The Cellular network shall prevent unauthenticated entities from accessing the cellular network. */
+
+		THE Cellular_network SHALL PREVENT unauthenticated entities FROM accessing TO THE Cellular_network 
+
+		/* "accessing TO the cellular network" not possible */ 
+		/* accessing needs to be revised to Components/Variables categories? */ 
+
+	}, 
+
+	Requirement: Req_SEC_ISO40 
+	RequirementClassification: SecurityFunctional
+	{ 
+		/* The Navigation ECU shall detect malicious control signals.. */ 
+
+		THE Navigation_ECU SHALL DETECT malicious control_signals. 
+	}, 
+	
+
+	Requirement: Req_SEC_ISO41 
+	RequirementClassification: SecurityFunctional
+	{	
+		/* The Navigation ECU shall prevent malicious control signals from being transmitted. */ 
+
+		THE Navigation_ECU SHALL PREVENT malicious control_signals FROM being_transmitted /*KB*/ 
+	}, 
+			
+	Requirement:  Req_SEC_ISO50 
+	RequirementClassification: SecurityFunctional
+	{ 
+		/* The Gateway shall detect malicious control signals. */ 
+		
+		THE Gateway SHALL DETECT malicious control_signals 
+	}, 
+
+	Requirement:  Req_SEC_ISO51 
+	RequirementClassification: SecurityFunctional
+	{ 
+		/* The Gateway shall drop detected malicious control signals. */ 
+		
+		THE Gateway SHALL drop detected malicious control_signals
+	}, 
+
+	Requirement:  Req_SEC_ISO60 
+	RequirementClassification: SecurityFunctional
+	{ 
+		/* The Power Switch shall detect spoofing of the Lamp Switch On Request by verifying its MAC. */ 
+		
+		THE Power_Switch SHALL DETECT THE spoofing OF Lamp_switch_on_request WITH verifying THE MAC OF THE Power_Switch 
+
+		/* HSC 20220810 - spoofing is not possible without THE. Then becomes an Object attribute */ 
+		/* HSC 20220810 - spoofing without THE should be object attributes here? */ 
+		/* HSC 20220810 - BY verifying not possible -> add to 11? */ 
+	}, 
+
+	Requirement:  Req_SEC_ISO61 
+	RequirementClassification: SecurityFunctional
+	{ 
+		/* The Power Switch shall drop detected spoofed Lamp Switch On Requests. */ 
+
+		THE Power_Switch SHALL drop	detected spoofed Lamp_switch_on_request 
+	}, 
+
+	Requirement:  Req_SEC_ISO70 
+	RequirementClassification: SecurityFunctional
+	{ 
+		/* The Body Control ECU shall generate a MAC for a Lamp Switch On Requests. */ 
+
+		IF request THE Body_Control_ECU SHALL generated A MAC FOR Lamp_switch_on_request 
+	}, 
+
+	Requirement:  Req_SEC_ISO71 
+	RequirementClassification: SecurityFunctional
+	{ 
+		/* The Body Control ECU shall transmit the generated MAC for a Lamp Switch On Request with its MAC. */ 
+
+		THE Body_Control_ECU SHALL transmit THE generated MAC FOR A Lamp_switch_on_request WITH THE MAC OF Body_Control_ECU 
+	}, 
+
+	Requirement:  Req_SEC_ISO72 
+	RequirementClassification: SecurityTechnical
+	{
+		/*Headlamp	system except for signals in a white list. */
+
+		/* IF ... THEN */
+		/* IF THE Signals ARE NOT IN white_list */
+
+		THE Gateway	SHALL NOT transfer THE signals FROM Navigation_ECU TO Headlamp_system EXCEPT FOR signals IN white_list /*KB*/
+
+		/* HSC 20220810 - ANY not possible -> add to 10? */
+
+		/* "signals" without "THE" not possible */
+		/* -> Alternatively, enable an IF condition at the beginning? */
+	}  
+]
+}
