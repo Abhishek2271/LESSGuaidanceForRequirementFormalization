@@ -68,7 +68,7 @@ Citated as
       ---
       
       <details>
-      <summary><strong>b. Generate Test Cases from LESS Requirements Directly (Deterministic Generation)</strong></summary>
+      <summary><strong>b. Generate Test Cases from LESS Requirements Directly (Deterministic)</strong></summary>
       
 
       
@@ -99,7 +99,7 @@ Citated as
       ---
       
       <details>
-      <summary><strong>c. Generate Test Cases from LESS Requirements using LLM</strong></summary>
+      <summary><strong>c. Generate Test Cases from LESS Requirements using LLM (Non-deterministic)</strong></summary>
 
       **Description:**
       `-t` argument is given.
@@ -128,7 +128,7 @@ Citated as
       ---
       
       <details>
-      <summary><strong>d. Generate Test Cases from Natural Language (NL) Requirements using LLM</strong></summary>
+      <summary><strong>d. Generate Test Cases from Natural Language (NL) Requirements using LLM (Non-deterministic)</strong></summary>
 
       **Description:**
       `-n` argument is given.
