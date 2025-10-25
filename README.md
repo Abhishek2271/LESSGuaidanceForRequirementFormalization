@@ -4,8 +4,9 @@ The scripts, prompts, and the requirement and test generation Python application
 
 **_LESS is more: Guiding LLMs for Formal Requirement and Test Case Generation_**
 
-Citated as
-
+<Details>
+<summary><strong>Show BibTeX Citation</strong></summary>
+  
 ```bibtex
 @inproceedings{less_is_more,
   author       = {Shrestha, Abhishek and Schlingloff, Bernd-Holger and Großmann, Jürgen},
@@ -25,7 +26,7 @@ Citated as
   keywords     = {Large Language Models, Controlled Natural Language, Requirements Engineering, Test Case Generation, Verification and Validation},
 }
 ````
-
+</Details>
 ---
 
 More specifically, the repository provides the following artefacts:  
@@ -42,7 +43,7 @@ More specifically, the repository provides the following artefacts:
 With the python application, you can run the entire experimentation workflow as depicted in the the figure below:
 
 <p align="center">
-  <img src="images/workflow.png" alt="Workflow diagram" width="600"/>
+  <img src="images/workflow.png" alt="Workflow diagram" width="1000"/>
   <br>
   <em>Experimentation Workflow: LESS requirement generated using LLMs followed by test case generation. Blocks using LLM prompts are colored green.</em>
 </p>
