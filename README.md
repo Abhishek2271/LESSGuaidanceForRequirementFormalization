@@ -39,7 +39,10 @@ More specifically, the repository provides the following artefacts:
 
 ***Thus, this documentation not only covers the results but also the analysis of the results.***  
 
-With the python application, you can run the entire experimentation workflow as depicted in the the figure below:  
+With the python application, you can run the entire experimentation workflow as depicted in the the figure below:
+
+![Experimentation Workflow: LESS requirement generated using LLMs followed by test case generation.
+Blocks using LLM prompts are colored green](images/workflow.png)  
 
 Additionally, the Repo also contains a wiki section that describes:  
 1. Using the python application to perform experiments.
