@@ -1,0 +1,160 @@
+[
+  {
+    "Reference": "test-Req_gen1",
+    "Requirement": "Req_gen1",
+    "Testobjects": [
+      "System",
+      "acceleration"
+    ],
+    "PRE": {},
+    "POST": {}
+  },
+  {
+    "Reference": "test-Req_gen3",
+    "Requirement": "Req_gen3",
+    "Testobjects": [
+      "System",
+      "deceleration"
+    ],
+    "PRE": {},
+    "POST": {}
+  },
+  {
+    "Reference": "test-Req_gen4",
+    "Requirement": "Req_gen4",
+    "Testobjects": [
+      "System",
+      "deceleration"
+    ],
+    "PRE": {},
+    "POST": {}
+  },
+  {
+    "Reference": "test-Req_gen5",
+    "Requirement": "Req_gen5",
+    "Testobjects": [
+      "plausibility",
+      "Drive_Pedal",
+      "sensor_signals"
+    ],
+    "PRE": {},
+    "POST": {}
+  },
+  {
+    "Reference": "test-Req_gen6",
+    "Requirement": "Req_gen6",
+    "Testobjects": [
+      "plausibility",
+      "Drive_Pedal",
+      "sensor_signals"
+    ],
+    "PRE": {},
+    "POST": {}
+  },
+  {
+    "Reference": "test-Req_gen7",
+    "Requirement": "Req_gen7",
+    "Testobjects": [
+      "plausibility",
+      "sensor_signals",
+      "Throttle_Valve"
+    ],
+    "PRE": {},
+    "POST": {}
+  },
+  {
+    "Reference": "test-Req_gen9",
+    "Requirement": "Req_gen9",
+    "Testobjects": [
+      "actuator",
+      "Engine_Control_Unit",
+      "plausibility_checks",
+      "errors"
+    ],
+    "PRE": {},
+    "POST": {}
+  },
+  {
+    "Reference": "test-Req_gen10",
+    "Requirement": "Req_gen10",
+    "Testobjects": [
+      "signals",
+      "plausibility",
+      "actuator",
+      "Engine_Control_Unit"
+    ],
+    "PRE": {},
+    "POST": {}
+  },
+  {
+    "Reference": "test-Req_gen12",
+    "Requirement": "Req_gen12",
+    "Testobjects": [
+      "acceleration",
+      "Engine_Control_Unit"
+    ],
+    "PRE": {},
+    "POST": {}
+  },
+  {
+    "Reference": "test-Req_gen15",
+    "Requirement": "Req_gen15",
+    "Testobjects": [
+      "Function_Controller",
+      "Engine_Control_Unit"
+    ],
+    "PRE": {},
+    "POST": {}
+  },
+  {
+    "Reference": "test-Req_gen16",
+    "Requirement": "Req_gen16",
+    "Testobjects": [
+      "System",
+      "Lamp_switch_on_request"
+    ],
+    "PRE": {},
+    "POST": {}
+  },
+  {
+    "Reference": "test-Req_gen17",
+    "Requirement": "Req_gen17",
+    "Testobjects": [
+      "control_signals",
+      "Navigation_ECU"
+    ],
+    "PRE": {},
+    "POST": {}
+  },
+  {
+    "Reference": "test-Req_gen18",
+    "Requirement": "Req_gen18",
+    "Testobjects": [
+      "being_transmitted",
+      "control_signals",
+      "Navigation_ECU"
+    ],
+    "PRE": {},
+    "POST": {}
+  },
+  {
+    "Reference": "test-Req_gen19",
+    "Requirement": "Req_gen19",
+    "Testobjects": [
+      "control_signals",
+      "Gateway"
+    ],
+    "PRE": {},
+    "POST": {}
+  },
+  {
+    "Reference": "test-Req_gen20",
+    "Requirement": "Req_gen20",
+    "Testobjects": [
+      "control_signals",
+      "Gateway"
+    ],
+    "PRE": {},
+    "POST": {}
+  }
+]

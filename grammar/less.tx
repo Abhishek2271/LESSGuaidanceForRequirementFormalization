@@ -1,0 +1,325 @@
+Model:
+'Project' name=ERID '{'
+(
+        ('Conditions' ':' '[' conditions += Condition*[','] ']')?
+        ('Variables' ':' '[' variables += Variable*[','] ']')?
+        ('Objects' ':' '[' obj += Req_object*[','] ']')?
+        ('RequirementClassification' ':' '[' reqclass += RequirementClassification*[','] ']')?
+        ('SafetySecurityRank' ':' '[' reqRank += SafetySecurityRank*[',']']')?
+        ('Verbs' ':' '[' verbs+= Verb*[','] ']')?
+        ('Errors' ':' '[' error+= Error*[','] ']')?
+        ('Events' ':' '[' events+= Event*[','] ']')?
+        ('Sets' ':' '[' sets += Set*[','] ']')?
+        ('ObjectAttribute' ':' '[' attribut += ObjectAttribute*[','] ']')?
+        ('Components' ':' '[' components += Component*[','] ']')?
+        ('States' ':' '[' states += State*[','] ']')?
+        ('StatesSpace' ':' '[' st_space += State_space*[','] ']')?
+        ('Commentary' ':' '[' com += Commentary*[','] ']')?
+        ('Requirements' ':' '[' requirements += Requirement+[','] ']')?
+)#[',']
+'}'
+;
+
+// Classes
+Condition:
+    name=ERID (':' '{'
+        expression+=bool_math_expr+
+        '}')?
+        ;
+        Event: name=ERID
+        (':' '{' Description '}')?
+        ;
+        State: name=ERID
+        (':' '{' Description '}')?
+;
+Event: name=ERID
+        (':' '{' Description '}')?
+        ;
+Component: name=ERID
+        (':' '{' 'stateSpaces' ':' '[' (st_space = [State_space | ERID](
+        ':''{' 'default' ':' state = [State | ERID]
+        ',' 'input' ':' (BOOL) ',' 'output' ':' (BOOL) '}')? )* [','] ']' '}')?
+        ;
+Req_object: name=ERID
+        (':' '{'Description '}')?
+        ;
+ObjectAttribute: name=ERID
+        (':' '{' ObjectName '}')?
+        ;
+RequirementClassification:
+        name=ERID
+        ;
+SafetySecurityRank:
+        name=ERID
+        ;
+Commentary: name=ERID
+        (':' '{' Description'}')?
+        ;
+Transition:
+        (( 'FROM' (':')? (from_state=[State | ERID] | from_st = STRING))? (
+        'TO' (':')? (to_state=[State | ERID] | to_st = STRING))?)
+        ;
+Requirement:
+        'Requirement:' name=ERID
+        req = Req
+        ;
+Req:
+'RequirementClassification:' req_class = [RequirementClassification | ERID]
+                                ('Safety/SecurityRank:' req_rank = [SafetySecurityRank | ERID] )?
+                                ('RequirementReference:' ( re = [Requirement | ERID]) )?
+                                '{'
+                                specification = Specification
+                                '}'
+;
+
+// Specification syntax
+Specification:
+        (conditionals=Conditionals)? // 1. opt. - If /  Before...
+        (attribut= attribut_of_subject)?
+        subject+=System_families* // 2. obl. - the system / component / ...
+        obligation=Degree_of_obligation // 3. obl. - shall / shall not
+        activity=System_activities //4.-5.opt.- provide / be  able...
+        (attribut=attribut_of_subject)?
+        (object+=Objects*)?
+        (external_condition = External_condition)?
+        (relax=Relaxes)?
+        '.'?
+        ;
+optional:
+        Objects | External_condition | Relaxes
+        ;
+
+// SYNTAX ELEMENTS
+Conditionals:
+        logical_conditional | state_conditional | behavior_conditional
+        ;
+System_families:
+// specific_systems
+        specific_subject | set_of_components
+        ;
+// System families
+specific_subject:
+        ('THE' | 'ANY')? (subject=Subject | subject = STRING) ('OF'|'BY
+        USING'| 'FROM' | 'FOR' | 'IN' | 'AGAINST' |
+        'TO' | 'WITH' | 'EXCEPT FOR' | ('WHICH' | 'THAT') verb=[Verb|ERID] )?
+        ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+        ;
+set_of_components:
+        ('ALL' | 'SOME')? 'SYSTEMS' 'OF' 'THE' (subject=Subject | subject =
+        STRING) ('OF'|'BY USING' | 'FROM' | 'FOR' | 'IN' | 'AGAINST' |
+        'TO' | 'WITH' | 'EXCEPT FOR' | ('WHICH' | 'THAT') verb=[Verb|ERID])?
+        ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+        ;
+Subject:
+        (sub = [Component | ERID] | sub = [Error | ERID] | sub =[Req_object |
+        ERID] | sub = [Variable | ERID])
+        ;
+attribut_of_subject:
+        ((attr = [ObjectAttribute | ERID]) * ['AND'] )?
+        ;
+Degree_of_obligation:
+        'SHALL' ('NOT')?
+        ;
+System_activities:
+        provide_activity | be_able_activity | process_verb | (STRING) * ['AND']
+        ;
+Objects:
+        specific_object | unspecific_object | all_objects | each_object
+        ;
+// CONDITIONS
+logical_conditional:
+        'IF' ('NOT')? ('(')? ( condition=STRING | condition+=logical_expression+ ) (')')? ('THEN')? ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+;
+state_conditional:
+        ('WHILE' | 'DURING') (activation_state += logical_expression+ | activation_state = STRING) ('THEN')? ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+;
+behavior_conditional:
+        ('AFTER' | 'BEFORE' | 'AS' 'SOON' 'AS' | 'IN' 'CASE' 'OF') (behavior += logical_expression+ | behavior = STRING ) 
+        //('WAS' | 'IS')? ((attr = [ObjectAttribute | ERID]) * ['AND'] )?
+        ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+;
+Behavior:
+        (Transition | bool_math_expr| beh=[State|ERID] | beh=[Variable|ERID] | beh=[Event|ERID] | beh = [Component | ERID] | beh =[Req_object | ERID] | beh = [Error |ERID] | beh = [Condition |ERID] ) ('WAS' | 'IS')? ((attr = [ObjectAttribute | ERID]) * ['AND'] )?
+;
+
+// Activities
+provide_activity:
+'PROVIDE'
+        (pract=[Component] | pract=[Variable] | pract =[Req_object | ERID] |pract=[Set] | provide_obj=STRING)* ['AND'] 
+        ('WITH' 'THE' 'ABILITY')? ('TO')?
+        (process=process_verb | verb=[Verb|ERID] |provide_verb=STRING)?
+        (transition=Transition)?
+        (('FROM' (sender=Subject | send = STRING)) |
+        ('TO' (reveiver=Subject | rev = STRING)))?
+        ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+        ;
+be_able_activity:
+        'BE' 'ABLE' 'TO'
+        (process_verb=process_verb | verb=[Verb|ERID] |be_able_verb = STRING )*
+        ['AND'] (Transition)?
+        (('FROM' (sender=Subject | send = STRING)) |
+        ('TO' (reveiver=Subject | rev = STRING)))?
+        ('Comment:'comm=Commentary )? (Comment1)?
+        ;
+process_verb:
+        ('ENSURE' | 'DETECT' | 'SWITCH' | 'ALLOW' | 'PREVENT' ('FROM')? |
+        'CHECK' | verb = [Verb|ERID] )*
+        ['AND']
+        (Transition)?
+        (('FROM' (sender=Subject | send = STRING)) |
+        ('TO' (reveiver=Subject | rev = STRING)))?
+        ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+        ;
+// Objects
+unspecific_object:
+        ('A' | 'AN') (object = obj | object = STRING) ('OF' | 'BY' 'USING' |
+        'FROM' | 'FOR' | 'IN' | 'AGAINST' |
+        'TO' | 'WITH' | 'EXCEPT FOR' | ('WHICH' | 'THAT') verb=[Verb|ERID])?
+        ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+        ;
+specific_object:
+        ('THE'| 'ANY')? (':')? (object = obj | object = STRING) ('OF' | 'BY'
+        'USING' | 'FROM' | 'FOR' | 'IN' | 'AGAINST' |
+        'TO' | 'WITH' | 'EXCEPT FOR' | ('WHICH' | 'THAT') verb=[Verb|ERID])?
+        ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+        ;
+all_objects:
+        'ALL' 'THE' (object = obj | object = STRING) ('OF' | 'BY' 'USING' |
+        'FROM' | 'FOR' | 'IN' | 'AGAINST' |
+        'TO' | 'WITH' | 'EXCEPT FOR' | ('WHICH' | 'THAT') verb=[Verb|ERID])?
+        ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+        ;
+each_object:
+        'EACH' (object = obj | object = STRING) ('OF' | 'BY' 'USING' | 'FROM'
+        | 'FOR' | 'IN' | 'AGAINST' |
+        'TO' | 'WITH' | 'EXCEPT FOR' | ('WHICH' | 'THAT') verb=[Verb|ERID])?
+        ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+        ;
+obj:
+        (ob = [Component | ERID] | ob = [Variable | ERID] |ob =[Req_object |
+        ERID] | ob= [Error | ERID] | ob = [Set | ERID])
+        ;
+External_condition:
+        ('IF' 'AND' 'ONLY' 'IF') ('NOT')? (external_condition+=logical_literal+
+        | external_condition=STRING)
+        ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+        ;
+
+
+// Relaxes
+Relaxes:
+        until_event |within_time_interval
+        ;
+until_event:
+        'UNTIL'
+        (until_event=[Event|ERID] | until_ev = STRING)
+        ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+        ;
+within_time_interval:
+        'WITHIN'
+        (interval= Time_Interval)
+        ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+        ;
+logical_literal:
+        bool_state_expr | behav=Behavior
+        ;
+bool_var:
+axiom=Axiom
+        ( bool_var_in_set_expr | bool_math_expr )?
+        ;
+Axiom:
+        Variable | Number | STRING
+        ;
+bool_math_expr:
+        (var1 = [Variable | ERID] boolop = bool_operator+ (var2 = INT | var3 =
+        [Variable | ERID]))
+        ;
+bool_state_expr:
+        ('(')? (sub += [ Component | ERID]* ['AND']| sub+=[Variable|ERID]*
+        ['AND'] | sub+=[Req_object |ERID]* ['AND']) (')')?
+        'IN' state=[State|ERID] ('STATE')?
+        ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+        ;
+State_expr:
+        state=[State | ERID] | STRING |'ANY'
+        ;
+bool_var_in_set_expr:
+        'IN' set=[Set|ERID]
+        ;
+bool_event_triggerd:
+        event=[Event|ERID] 'IS' ('NOT')? 'TRIGGERED'
+        ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+        ;
+Operator:
+        math_operator | bool_operator
+        ;
+bool_math_var:
+        (event=[Event|ERID] | state= [State|ERID] | var=[Variable|ERID] |
+        set=[Set|ERID] | Number | STRING)
+        ;
+logical_expression:
+        ('NOT')? lit = logical_literal ('AND')?
+        ('Comment:'comm= [Commentary | ERID])? (Comment1)?
+        ;
+// Operators
+bool_operator:
+        ('LESS' 'THAN') | ('GREATER' 'THAN') | ('EQUAL' 'TO')
+        ;
+math_operator:
+        ('+'|'-'|'*'|'/'|'%'|'^')
+        ;
+// Advanced Datatypes
+Variable: name=ERID ('=' nr+=Number)* ;
+Verb: name=ERID ;
+Error: name=ERID ;
+Time_Interval:
+        time_value=Number
+        time_unit=STRING
+        ;
+Number: INT | FLOAT ;
+Set:
+        name=ERID
+        (':' '{'
+        (
+        ('Description' ':' description=STRING)? |
+        (items?=Items?)?
+        )#[',']
+        '}')?
+        ;
+State_space:
+        name=ERID
+        (':' '['
+        (
+        (state+=[State|ERID]* [','])?
+        )#[',']
+        ']')?
+        ;
+Items:
+        'Items' ':' '[' items += [Variable]*[','] ']'
+        ;
+ERID: !Keyword ID ;
+        Description:
+        'Description' ':' description=STRING
+        ;
+ObjectName:
+        'ObjectName' ':' obj=STRING
+        ;
+Comment1:
+        'Comment' ':' comm=STRING
+        ;
+Keyword:
+        'Items' | 'NOT' | 'A' | 'AN' | 'THOSE' | 'LESS' | 'THAN' | 'EQUAL' |
+        'GREATER' | 'FROM' | 'TO' |
+        'IF' | 'AND' | 'OR' | 'ONLY' | 'IS' | 'IN'| 'INCLUDED' | 'TRIGGER' |
+        'AS' | 'SOON' | 'POSSIBLE' |
+        'BEFORE' | 'AFTER' | 'TRIGGERED' | 'SET' | 'STATE' | 'EVENT' | 'CASE' |
+        'WHILE' | 'DURING' | 'EARLY' | 'LATE' |
+        'WITHIN' | 'UNTIL' | 'ALL' | 'SOME' | 'THE' | 'SHALL' | 'SHOULD' |
+        'COULD' | 'PROVIDE' | 'WITH' | 'ABILITY' |
+        'ABLE' | 'TOWARDS' | 'EACH' | 'BETWEEN' | 'ALL' | 'MANY' | 'FEW' | 'AT'
+        | 'LEAST' | 'EVENTUALLY' | 'CLOSE' |
+        'ANY'| 'ENSURE' | 'WHICH'
+        ;
+Comment:
+        /\/\*(.|\n)*?\*\//
+        ;

@@ -1,0 +1,185 @@
+Project VAD {
+RequirementClassification:[
+	SafetyGoal
+	SafetyFunctional
+	SafetyTechnical
+	SecurityGoal
+	SecurityFunctional
+	SecurityTechnical
+],
+SafetySecurityRank:[
+	QM
+],
+Variables: [
+	systolic_pressure,
+	diastolic_pressure,
+	default_systolic_pressure,
+	default_diastolic_pressure,
+	diastolic_pressure_limit,
+	start_test,
+	pumps,
+	message,
+	description,
+	compact_drive_first_switch,
+	combination,
+	last_values,
+	ability,
+	default_values_for_pressure_parameters,
+	last_values_manual_mode,
+	openenings_number,
+	temperature_value_of_the_flow_sensors,
+	temperature_of_compact_drive,
+	acoustic_alarm,
+	information_signal
+],
+Verbs: [
+	start,
+	pause,
+	adjust,
+	inform,
+	display,
+	count,
+	signal,
+	emit,
+	receive,
+	confirm,
+	store,
+	indicate,
+	cancel
+],
+Errors: [
+	s4_error,
+	s8_error,
+	T3_alarm,
+	s7_error,
+	T2_alarm
+],
+Components: [
+	compact_drive,
+	user,
+	clinical_ui,
+	left_epu,
+	right_epu,
+	compact_drive_software,
+	air_mass_balancing_valve,
+	cannulae,
+	system,
+	power_supply_unit
+],
+ObjectAttribute:[
+	engaged,
+	current,
+	invalid,
+	selected,
+	operated
+],
+States: [
+	is_running,
+	is_stopped,
+	bvad_mode,
+	lvad_mode,
+	rvad_mode,
+	logged_in,
+	manual_mode,
+	auto_mode,
+	failed,
+	setting,
+	not_recomended_in_pcm,
+	authorized,
+	unauthorized,
+	removed,
+	active
+],
+StatesSpace: [
+	am_mode: [auto_mode, manual_mode],
+	authorizable: [authorized, unauthorized]
+],
+Commentary: [
+
+],
+Sets: [
+
+],
+
+Requirements : [
+
+			Requirement: Req_01a
+            RequirementClassification: SecurityFunctional
+            {
+                IF compact_drive IN failed STATE
+				AND clinical_ui IN is_running STATE
+				THE clinical_ui SHALL SWITCH THE compact_drive TO is_running 
+            }
+			Requirement: Req_01a //REMOVED STATE
+            RequirementClassification: SecurityFunctional
+            {
+                IF compact_drive IN failed 
+				AND clinical_ui IN is_running 
+				THE clinical_ui SHALL SWITCH THE compact_drive TO is_running 
+            }
+			Requirement: Req_02a //REMOVED AND CONDITION
+            RequirementClassification: SecurityFunctional
+            {
+                IF compact_drive IN failed STATE
+				THE clinical_ui SHALL SWITCH THE compact_drive TO is_running 
+            }
+			Requirement: Req_02a //REMOVED THE COMPONENT FROM THE OBJECT
+            RequirementClassification: SecurityFunctional
+            {
+                IF compact_drive IN failed STATE
+				AND clinical_ui IN is_running STATE
+				THE clinical_ui SHALL SWITCH TO is_running 
+            }
+			Requirement: Req_gen9 //ADDED ADDITIONAL PROCESS VERB
+            RequirementClassification: SecurityFunctional
+            {
+                IF compact_drive IN failed STATE
+				AND clinical_ui IN is_running STATE
+				THE clinical_ui SHALL SWITCH AND ALLOW THE compact_drive TO is_running 
+            }
+			Requirement: Req_gen9 //REPLACED COMPONENTS WITH JUST STATES
+            RequirementClassification: SecurityFunctional
+            {
+                IF compact_drive IN failed STATE
+				AND clinical_ui IN is_running STATE
+				THE is_running SHALL SWITCH THE is_running TO is_running 
+            }
+			Requirement: Req_gen9 //A COMPONENT INPLACE OF THE COMPONENT
+            RequirementClassification: SecurityFunctional
+            {
+                IF compact_drive IN failed STATE
+				THE clinical_ui SHALL SWITCH A compact_drive TO is_running 
+            }
+			Requirement: Req_gen9 //NO ARTICLE INFRONT OF THE COMPONENT
+			RequirementClassification: SecurityFunctional
+            {
+                IF compact_drive IN failed STATE
+				THE clinical_ui SHALL SWITCH compact_drive TO is_running 
+            }
+			Requirement: Req_gen9 //REPLACED COMPONENT WITH VARIABLE: systolic_pressure
+			RequirementClassification: SecurityFunctional
+            {
+                IF compact_drive IN failed STATE
+				THE clinical_ui SHALL SWITCH systolic_pressure TO is_running 
+            }
+			Requirement: Req_gen9 //ADDED NOT 
+            RequirementClassification: SecurityFunctional
+            {
+                IF compact_drive IN failed STATE
+				THE clinical_ui SHALL NOT SWITCH THE compact_drive TO is_running 
+            }
+			Requirement: Req_gen9 //REMOVED state change
+            RequirementClassification: SecurityFunctional
+            {
+                IF failed IN failed
+				AND clinical_ui IN is_running STATE
+				THE is_running SHALL SWITCH A compact_drive
+            }
+			Requirement: Req_gen9 //NOT IN CONDITIONAL
+            RequirementClassification: SecurityFunctional
+            {
+				IF NOT FROM is_running TO is_stopped  
+				THE clinical_ui SHALL NOT SWITCH THE clinical_ui TO is_running
+            }
+]
+}

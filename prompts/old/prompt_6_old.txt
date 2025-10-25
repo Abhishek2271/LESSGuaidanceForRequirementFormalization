@@ -1,0 +1,217 @@
+Your task is to convert the natural language requirements into LESS requirements. The LESS formatted requirements are controlled language requirements that follow the following rules:
+1. Conditional: each requirement begins with a "conditional" (optional). This could contain keywords: IF or IF NOT or WHILE or DURING or AFTER or BEFORE or AS SOON AS or IN CASE OF. This is followed by either 
+	a boolean state expression which could contain [Variables] or [Components] that can be concatenated with keyword AND then followed by IN [state]. OR
+	a behaviour description that can begin with a transitional like FROM [state] and TO [state] or [Variables] or a [Components] or a boolean math expression or [error] and may be followed by WAS or IS and then [ObjectAttribute]. Multiple of these conditionals can be concatenated with AND. The boolean match expressions are [variable] followed by a LESS THAN, GREATER THAN or EQUAL TO and ending with an integer or another [variable]	
+    the conditional can end with "THEN" but is optional.	
+2. multiple object attributes that describe attributes of the subject from the [ObjectAttribute] list
+3. A Subject (Mandatory): The requirement must specify the specific subject it applies to. It can either be a specific subject or a set of components. This may begin with THE, ANY, ALL, SOME, SOME SYSTEMS OF THE, which is then followed by a subject (mandatory) which could be a [component] or [variable] or [error] then may be followed by phrases like OF, BY USING, FROM, FOR, IN, AGAINST, TO, WITH, EXCEPT FOR, WHICH, THAT, ALL, " and  a [verb]. 
+4. obligation (Mandatory): The modal verb defines obligation or prohibition. Only two verbs possible: "SHALL" or "SHALL NOT."
+5. sytem activity (Optional): This could be either provide_activity or be_able activity or a process_verb. Process_verb could only be ENSURE, DETECT, SWITCH, ALLOW, PREVENT OR PREVENT FROM OR CHECK or a [verb] from pre-defined list. Always use the process_verb in CAPITAL but [verb] should be small letter. The provide-activity and be_able activity must begin with PROVIDE or BE ABLE TO followed by [Variables] or a [Components] then followed by WITH THE ABILITY TO (only in case of provide_activity begining with PROVIDE) or may followed by any of the process_verbs described above. This is then followd by keyword AND and a transitional like FROM [state] and TO [state] 
+
+6. object attributes(Optional): from the  [ObjectAttribute] list
+7. object: This can be 
+ object or specific object or all object or each object. They begin with THE, ANY, A, AN, ALL THE, or EACH. Followed by an object which could be any string or [component] or [variable] or [error] then followed by phrases like OF, BY USING, FROM, FOR, IN, AGAINST, TO, WITH, EXCEPT FOR, WHICH, THAT, any may be followed by a [verb].
+8. External Condition (Optional): Adds additional conditions at the end of the requirement. It includes "IF AND ONLY IF" or "IF AND ONLY IF NOT" as starting phrase. This is followed by either a boolean state expression which could contain [Variables] or [Components]  that can be concatinated with keyword AND then followed by IN [state]. OR a behaviour description that can begin with a transitional like FROM [state] and TO [state] or [Variables] or a [Components] or a boolean math expression or [error] and may be followed by WAS or IS and may be followed by [ObjectAttribute]. These descriptions can be concatinated with AND. The boolean match expressions are [variable] followed by a LESS THAN, GREATER THAN or EQUAL TO and ending with an integer or another [variable] This is always before Relaxation.
+9. Relaxation (Optional): Specifies when the requirement no longer applies. It is defined using "UNTIL" or "WITHIN" and comes always at the end.
+only use below elements when using [variables], [components], [verb], [Components],[ObjectAttribute], [state] when forming requirements. If there are [variables], [components], [verb], [Components],[ObjectAttribute], [state] other than the ones mentioned below then replace them with below elements if they are synonyms. Always use small case letters for [variables], [components], [Verbs], [Components],[ObjectAttribute] 
+Variables: [
+	systolic_pressure,
+	diastolic_pressure,
+	default_systolic_pressure,
+	default_diastolic_pressure,
+	diastolic_pressure_limit,
+	start_test,
+	pumps,
+	message,
+	description,
+	compact_drive_first_switch,
+	combination,
+	last_values,
+	ability,
+	default_values_for_pressure_parameters,
+	last_values_manual_mode,
+	openenings_number,
+	temperature_value_of_the_flow_sensors,
+	temperature_of_compact_drive,
+	acoustic_alarm,
+	information_signal
+],
+Verbs: [	start,
+	pause,
+	adjust,
+	inform,
+	display,
+	count,
+	signal,
+	emit,
+	receive,
+	confirm,
+	store,
+	indicate,
+	cancel
+],
+Errors: [
+	s4_error,
+	s8_error,
+	T3_alarm,
+	s7_error,
+	T2_alarm
+],
+Components: [
+	compact_drive,
+	user:{stateSpaces: [authorizable]},
+	clinical_ui,
+	left_epu,
+	right_epu,
+	compact_drive_software,
+	air_mass_balancing_valve,
+	cannulae,
+	system,
+	power_supply_unit
+],
+ObjectAttribute:[
+	engaged,
+	current,
+	invalid,
+	selected,
+	operated
+],
+States: [
+	is_running,
+	is_stopped,
+	bvad_mode,
+	lvad_mode,
+	rvad_mode,
+	logged_in,
+	manual_mode,
+	auto_mode,
+	failed,
+	setting,
+	not_recomended_in_pcm,
+	authorized,
+	unauthorized,
+	removed,
+	active
+],
+StatesSpace: [
+	am_mode: [auto_mode, manual_mode],
+	authorizable: [authorized, unauthorized]
+]
+You can use the following Json formatted examples to generate the results. The results should also be in same format as the samples below, do not add any notes or any additional text other than json putput:
+[
+  {
+    "nlp": "While the system is in BVAD mode, it should allow the user to start the right EPU only if the left EPU is running.",
+    "LESS": "WHILE bvad_mode THE system SHALL BE ABLE TO start THE right_epu IF AND ONLY IF left_epu IN is_running"
+  },
+  {
+    "nlp": "In the clinical user interface, switching from manual mode to auto mode should be possible only if the user is logged in.",
+    "LESS": "THE clinical_ui SHALL BE ABLE TO SWITCH FROM manual_mode TO auto_mode IF AND ONLY IF user IN logged_in"
+  },
+  {
+    "nlp": "Before engaging the manual mode, the user should be able to alter the default systolic pressure.",
+    "LESS": "BEFORE manual_mode IS engaged THE user SHALL BE ABLE TO adjust THE default_systolic_pressure."
+  },
+  {
+    "nlp": "The system should check the default systolic pressure before engaging the manual_mode.",
+    "LESS": "BEFORE manual_mode IS engaged THE system SHALL CHECK THE default_systolic_pressure."
+  },
+  {
+    "nlp": "If the system switches from manual mode to auto mode, it should adjust the diastolic pressure limit within 5 minutes.",
+    "LESS": "IF FROM manual_mode TO auto_mode THE system SHALL adjust THE diastolic_pressure_limit WITHIN \"5 min\""
+  },
+  {
+    "nlp": "The user should be able to check the current diastolic pressure of the sytem if it switches from the manual mode to the auto mode.",
+    "LESS": "IF FROM manual_mode TO auto_mode THE user SHALL BE ABLE TO CHECK current diastolic_pressure"
+  },
+  {
+    "nlp": "The clinical user interface should display the description of manual mode if manual mode is selected.",
+    "LESS": "IF manual_mode IS selected THE clinical_ui SHALL display THE description OF manual_mode"
+  },
+  {
+    "nlp": "If the bvad mode is in failed state and the right epu fails, the compact drive has to signal an S8 error.",
+    "LESS": "IF bvad_mode AND right_epu IN failed STATE THE compact_drive SHALL signal A s8_error"
+  }
+]
+
+Now, convert the following natural language requirement into a LESS requirement:
+
+[
+  {
+    "nlp": "The system should allow the user to pause the left EPU while in bvad_mode if and only if the right EPU is in the stopped state."
+  },
+  {
+    "nlp": "The clinical user interface should allow switching from auto mode to manual mode if only if the user is logged in."
+  },
+  {
+    "nlp": "If the system state changes from manual mode to auto mode, the user must be able to check the current systolic pressure."
+  },
+  {
+    "nlp": "The user must be able to alter the current systolic pressure when system state changes from manual mode to auto mode."
+  },
+  {
+    "nlp": "The user must be able to adjust the current systolic pressure if system state changes from manual mode to auto mode"
+  },
+  {
+    "nlp": "If the system switches from manual mode to auto mode, the user should be able to adjust the current systolic pressure."
+  },
+  {
+    "nlp": "If the compact drive first switches from auto mode to manual mode, the system should provide default values for pressure_parameters with the ability to confirm."
+  },
+  {
+    "nlp": "The system should provide last_values manual mode with the ability to confirm if the compact drive was operated from auto mode to manual mode."
+  },
+  {
+    "nlp": "The clinical user interface should display the description of auto mode if auto mode is selected."
+  },
+  {
+    "nlp": "The clinical user interface should provide the ability to switch from manual mode to auto mode if and only if the user is logged in."
+  },
+  {
+    "nlp": "The clinical user interface should provide the ability to switch from auto mode to manual mode if and only if the user is logged in."
+  },
+  {
+    "nlp": "The openenings number of the air_mass balancing valve should be stored by the compact drive."
+  },
+  {
+    "nlp": "The compact drive should count the openenings number of the air_mass balancing valve."
+  },
+  {
+    "nlp": "If the start test fails, the compact drive software should signal an S4 type error."
+  },
+  {
+    "nlp": "If the bvad mode is in failed state and the right epu fails, the compact drive has to signal an S8 error."
+  },
+  {
+    "nlp": "If the bvad mode and the left epu are in failed state, the compact drive should signal an S8 type error."
+  },
+  {
+    "nlp": "If the lvad mode fails and the right epu fails, the compact drive software should signal an S4 type error."
+  },
+  {
+    "nlp": "If the lvad mode is in failed state and the left epu fails, the compact drive software should signal an S4 error."
+  },
+  {
+    "nlp": "The compact drive software should signal an S4 type error if the rvad mode and the right epu are in failed state, "
+  },
+  {
+    "nlp": "The compact drive software should signal an S4 error if the rvad mode is in failed state and the left epu fails."
+  },
+  {
+    "nlp": "If both pumps and cannulae are in setting, and the combination is not recommended in PCM, the user should receive a message."
+  },
+  {
+    "nlp": "If the power supply unit is removed and the acoustic alarm is not active, the compact drive should emit an information signal."
+  },
+  {
+    "nlp": "If the temperature of the compact drive is invalid, the compact drive software should signal a T3 alarm."
+  },
+  {
+    "nlp": "The compact drive software should signal a T3 alarm if the temperature of the compact drive is less than 5 C"
+  },
+  {
+    "nlp": "After the temperature of the compact drive drops below 60 C and the T2 alarm is active, the compact drive software should cancel the T2 alarm."
+  },
+  {
+    "nlp": "If the temperature value of the flow sensors is invalid, the compact drive shall indicate an S7 error."
+  }
+]

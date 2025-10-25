@@ -1,0 +1,130 @@
+You will be given a list of structured requirements. Your job is to derive test cases from these requirements. The requirements are in "Language for Embedded Safety and Security" OR LESS format.  A LESS requirement could be in the following format:
+1. Conditional: each requirement begins with a "conditional" (optional). This could contain keywords: "IF" or "IF NOT" or "WHILE" or "DURING" or "AFTER" or "BEFORE" or "AS SOON AS" or "IN CASE OF". This is followed by either: 
+	a boolean state expression which could contain [Variables] or [Components] that can be concatenated with keyword "AND" then followed by keyword "IN" [States]; OR
+	a behaviour description that can begin with a transitional like "FROM" [States] and "TO" [States] or [Variables] or a [Components] or a boolean math expression or [Errors] and may be followed by "WAS" or "IS" and then [ObjectAttribute]. The boolean math expressions are [Variables] followed by a "LESS THAN", "GREATER THAN" or "EQUAL TO" and ending with an integer or [Variables]. Multiple of these conditionals can be concatenated with "AND".	
+  The conditional can end with "THEN" but is optional.	
+2. multiple object attributes that describe attributes of the subject from the [ObjectAttribute] list
+3. A Subject (Mandatory): The requirement specifies the specific subject it applies to. It can either be a specific subject or a set of components. This may begin with "THE", "ANY", "ALL", "SOME", "SOME SYSTEMS OF THE", which is then followed by a subject (mandatory) which could be a [Components] or [Variables] or [Errors] then may be followed by phrases like "OF", "BY USING", "FROM", "FOR", "IN", "AGAINST", "TO", "WITH", "EXCEPT FOR", "WHICH", "THAT" and end with a [Verbs]. 
+4. obligation (Mandatory): The modal verb defines obligation. Only two verbs possible: "SHALL" or "SHALL NOT"
+5. System Activity (Optional): This could be either provide_activity or be_able activity or a process_verb. Process_verb could only be "ENSURE", "DETECT", "SWITCH", "ALLOW", "PREVENT" OR "PREVENT FROM" OR "CHECK" or a [Verbs] from pre-defined list. Always use the process_verb in capital letters but [Verbs] should be small letter. The provide-activity must begin with "PROVIDE" followed by [Variables] or a [Components] then followed by "WITH THE ABILITY TO" or "TO" and then followed by any of the process_verbs described above. be_able activity must begin with "BE ABLE TO" followed by any of the process_verbs described above. Multiple of these activities can be then joined by "AND" which can then be followed by a transitional like FROM [States] and TO [States].
+6. object attributes(Optional): from the  [ObjectAttribute] list
+7. object: This can be object or specific object or all object or each object. They begin with THE, ANY, A, AN, ALL THE, or EACH. Followed by an object which could be any string or [Components] or [Variables] or [Errors] then followed by phrases like "OF", "BY USING", "FROM", "FOR", "IN", "AGAINST", "TO", "WITH", "EXCEPT FOR", "WHICH", "THAT", any may be followed by a [Verbs].
+8. External Condition (Optional): Adds additional conditions at the end of the requirement. It includes "IF AND ONLY IF" or "IF AND ONLY IF NOT" as starting phrase. This is followed by either a boolean state expression which could contain [Variables] or [Components]  that can be concatenated with keyword AND then followed by IN [States] or a behaviour description that can begin with a transitional like FROM [States] and TO [States] or [Variables] or a [Components] or a boolean math expression or [Errors] and may be followed by "WAS" or "IS" and may be followed by [ObjectAttribute]. These behaviour description can be concatenated with AND. The boolean math expressions are [Variables] followed by a "LESS THAN", "GREATER THAN" or "EQUAL TO" and end with an integer or another [Variables]. External Condition is always before Relaxes.
+9. Relaxes (Optional): Specifies when the requirement no longer applies. It starts with "UNTIL" or "WITHIN" and comes always at the end.
+only use [Variables], [Components], [Verbs], [ObjectAttribute], [States] defined below when forming requirements. If there are [Variables], [Components], [Verbs], [ObjectAttribute], [States] other than the ones mentioned below then replace them with below elements if they are synonyms. Always use small case letters for [Variables], [Components], [Verbs], [ObjectAttribute] 
+Variables: [
+	systolic_pressure,
+	diastolic_pressure,
+	default_systolic_pressure,
+	default_diastolic_pressure,
+	diastolic_pressure_limit,
+	start_test,
+	pumps,
+	message,
+	description,
+	compact_drive_first_switch,
+	combination,
+	last_values,
+	ability,
+	default_values_for_pressure_parameters,
+	last_values_manual_mode,
+	openenings_number,
+	temperature_value_of_the_flow_sensors,
+	temperature_of_compact_drive,
+	acoustic_alarm,
+	information_signal
+],
+Verbs: [	
+	start,
+	pause,
+	adjust,
+	inform,
+	display,
+	count,
+	signal,
+	emit,
+	receive,
+	confirm,
+	store,
+	indicate,
+	cancel
+],
+Errors: [
+	s4_error,
+	s8_error,
+	T3_alarm,
+	s7_error,
+	T2_alarm
+],
+Components: [
+	compact_drive,
+	user,
+	clinical_ui,
+	left_epu,
+	right_epu,
+	compact_drive_software,
+	air_mass_balancing_valve,
+	cannulae,
+	system,
+	power_supply_unit
+],
+ObjectAttribute:[
+	engaged,
+	current,
+	invalid,
+	selected,
+	operated
+],
+States: [
+	is_running,
+	is_stopped,
+	bvad_mode,
+	lvad_mode,
+	rvad_mode,
+	logged_in,
+	manual_mode,
+	auto_mode,
+	failed,
+	setting,
+	not_recomended_in_pcm,
+	authorized,
+	unauthorized,
+	removed,
+	active
+]
+
+Convert a requirement with a state transition (specified by transitionals in LESS9 to the form of a test case with defined PRE and POST states.
+
+The requirement always has a formal structure described above, where antecedents and consequences are specified.
+
+Your task is: For the requirements containing state transitions, convert this formal structure to the form of a test case. 
+
+The antecedents are converted to PRE states, consequences are converted to the POST states, and the corresponding [Components] and [Variables ] are converted to the test objects.
+
+Take reference of the below samples
+
+Requirement: Req_gen1
+RequirementClassification: SecurityFunctional
+{
+  IF compact_drive IN failed STATE
+  AND clinical_ui IN is_running STATE
+  THE user SHALL SWITCH THE clinical_ui TO is_stopped
+}
+
+The equivalent test case should be in below format:
+
+Reference: test-Req-positive
+Requirement: Req_gen1
+Test objects: [user, clinical_ui, compact_drive ]
+PRE: {compact_drive:failed: True, clinical_ui:is_running: True}
+POST: {clinical_ui:is_stopped: True}
+
+
+please create test case for the below requirement. 
+important: Maintain the structure of the test case as above
+
+Requirement: Req_gen2
+RequirementClassification: SecurityFunctional
+{
+   THE clinical_ui SHALL BE ABLE TO SWITCH FROM auto_mode TO manual_mode IF AND ONLY IF user IN logged_in
+}

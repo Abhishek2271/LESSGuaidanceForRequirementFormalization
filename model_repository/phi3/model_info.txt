@@ -1,0 +1,1 @@
+supports model: models--unsloth--Phi-3-medium-4k-instruct-bnb-4bit

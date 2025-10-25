@@ -1,0 +1,291 @@
+You will be given a list of structured requirements. Your job is to derive test cases from these requirements. The requirements are in "Language for Embedded Safety and Security" OR LESS format.  The LESS format defines safety and security requirements in a constrained natural language that strictly follows the following grammar:
+1. Conditional: each requirement begins with a "conditional" (optional). This could contain keywords: "IF" or "IF NOT" or "WHILE" or "DURING" or "AFTER" or "BEFORE" or "AS SOON AS" or "IN CASE OF". This is followed by either: 
+	a boolean state expression which could contain [Variables] or [Components] that can be concatenated with keyword "AND" then followed by keyword "IN" [States]; OR
+	a behaviour description that can begin with a transitional like "FROM" [States] and "TO" [States] or [Variables] or a [Components] or a boolean math expression or [Errors] and may be followed by "WAS" or "IS" and then [ObjectAttribute]. The boolean math expressions are [Variables] followed by a "LESS THAN", "GREATER THAN" or "EQUAL TO" and ending with an integer or [Variables]. Multiple of these conditionals can be concatenated with "AND".	
+  The conditional can end with "THEN" but is optional.	
+2. multiple object attributes that describe attributes of the subject from the [ObjectAttribute] list
+3. A Subject (Mandatory): The requirement must specify the specific subject it applies to. It can either be a specific subject or a set of components. This must begin with either "THE", "ANY", "ALL", "SOME", or "SOME SYSTEMS OF THE", which is then followed by a subject (mandatory) which could be a [Components] or [Variables] or [Errors] then may be followed by phrases like "OF", "BY USING", "FROM", "FOR", "IN", "AGAINST", "TO", "WITH", "EXCEPT FOR", "WHICH", "THAT" and end with a [Verbs]. 
+4. obligation (Mandatory): The modal verb defines obligation. Only two verbs possible: "SHALL" or "SHALL NOT"
+5. System Activity (Optional): This could be either provide_activity or be_able activity or a process_verb. Process_verb could only be "ENSURE", "DETECT", "SWITCH", "ALLOW", "PREVENT" OR "PREVENT FROM" OR "CHECK" or a [Verbs] from pre-defined list. Always use the process_verb in capital letters but all verbs in [Verbs] must be in small letter. The provide-activity must begin with "PROVIDE" followed by [Variables] or a [Components] then followed by "WITH THE ABILITY TO" or "TO" and then followed by any of the process_verbs described above. be_able activity must begin with "BE ABLE TO" followed by any of the process_verbs described above. Multiple of these activities can be then joined by "AND" which can then be followed by a transitional like FROM [States] and TO [States].
+6. object attributes(Optional): from the  [ObjectAttribute] list
+7. object: This can be object or specific object or all object or each object. They begin with THE, ANY, A, AN, ALL THE, or EACH. Followed by an object which could be any string or [Components] or [Variables] or [Errors] then followed by phrases like "OF", "BY USING", "FROM", "FOR", "IN", "AGAINST", "TO", "WITH", "EXCEPT FOR", "WHICH", "THAT", any may be followed by a [Verbs].
+8. External Condition (Optional): Adds additional conditions at the end of the requirement. It includes "IF AND ONLY IF" or "IF AND ONLY IF NOT" as starting phrase. This is followed by either a boolean state expression which could contain [Variables] or [Components]  that can be concatenated with keyword AND then followed by IN [States] or a behaviour description that can begin with a transitional like FROM [States] and TO [States] or [Variables] or a [Components] or a boolean math expression or [Errors] and may be followed by "WAS" or "IS" and may be followed by [ObjectAttribute]. These behaviour description can be concatenated with AND. The boolean math expressions are [Variables] followed by a "LESS THAN", "GREATER THAN" or "EQUAL TO" and end with an integer or another [Variables]. External Condition is always before Relaxation.
+9. Relaxation (Optional): Specifies when the requirement no longer applies. It starts with "UNTIL" or "WITHIN" and comes always at the end.
+only use [Variables], [Components], [Verbs], [ObjectAttribute], [States] defined below when forming test cases. If there are [Variables], [Components], [Verbs], [Objects], [ObjectAttribute], [States] other than the ones mentioned below then replace them with below elements if they are synonyms. 
+
+
+[Variables]: [
+	plausibility_checks, 
+	faults, 
+	unintended_acceleration, 
+	errors, 
+	high_driving_torque
+],
+[Objects]: [
+	acceleration, 
+	deceleration,  
+	plausibility,
+    torque_signals_affecting_requirements_of_other_ECUs,
+    signals,
+    state,
+    states,
+    sensor_signals,
+    torque_signals,
+    Driving_Torque,
+	accessing,      
+    entities,
+    being_transmitted,
+    signals_in_white_list 
+    integrity,
+    Lamp_switch_on_request,
+    received_data,
+	MAC,
+    request,
+    white_list
+],
+
+[Verbs]: [
+    protect,
+    monitor,
+    detect,
+    confirm,
+    drop,
+    generate,
+    transmit,
+	verify,
+    generated,
+    transfer,
+    verifying
+],
+
+[ObjectAttribute]:[
+    dangerous,
+    unintended,
+    loss,
+    of,
+    internal,
+    appropriate,
+    undesired,
+    safe,
+    High,
+	unauthenticated,
+	malicious,
+	detected,
+	spoofed,
+	spoofing
+],
+	
+[Components]: [
+    System,
+    Drive_Pedal,
+    Throttle_Valve,
+    Engine_Control_Unit,
+    Function_Controller,       
+    sensor_system,
+    signal_compound,
+    other_ECUs,
+    Mensor,
+	Navigation_ECU,
+    Cellular_network,
+    Gateway,
+    Power_Switch,
+    Body_Control_ECU,
+    control_signals,
+    Headlamp_system,
+	actuator
+],
+	
+[States]: [
+   safe_state
+]
+
+Convert a requirement with a state transition (specified by transitionals in LESS to the form of a test case with defined PRE and POST states). The requirement always has a formal structure described above, where antecedents and consequences are specified.
+
+Your task is: For the requirements containing state transitions, convert this formal structure to the form of a test case. 
+
+The antecedents are converted to PRE states, which are formatted as PRE: {[components] or [variable] or [Error]:{[States]: True or false}}. Consequences are converted to the POST states formatted as POST: {[components] or [variable] or [Error]:[States]: True or false}, and the corresponding [Components] and [Variables] are converted to the test objects.
+
+
+Take reference of the below pair of requirements and corresponding test cases in json format.
+Important: produce output in similar format, requirements should be followed by corresponding test cases. Do not add any extra text or note in the reply.
+
+[
+   [
+      {
+         "Requirement":"Req_gen0",
+         "RequirementClassification":"SecurityFunctional",
+         "LESS Requirement":"THE System SHALL PREVENT unintended loss of acceleration"
+      },
+      {
+         "Reference":"test-Req_gen0",
+         "Requirement":"Req_gen0",
+         "Testobjects":["System", "acceleration"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"Req_gen1",
+         "RequirementClassification":"SecurityFunctional",
+         "LESS Requirement":"THE Throttle_Valve SHALL CHECK THE internal sensor_signals OF THE Throttle_Valve FOR plausibility"
+      },
+      {
+         "Reference":"test-Req_gen1",
+         "Requirement":"Req_gen1",
+         "Testobjects":["plausibility", "Throttle_Valve", "sensor_signals"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"Req_gen2",
+         "RequirementClassification":"SecurityFunctional",
+         "LESS Requirement":"THE Cellular_network SHALL PREVENT unauthenticated entities FROM accessing THE Cellular_network"
+      },
+      {
+         "Reference":"test-Req_gen2",
+         "Requirement":"Req_gen2",
+         "Testobjects":["Cellular_network", "entities", "Cellular_network"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"Req_gen3",
+         "RequirementClassification":"SecurityFunctional",
+         "LESS Requirement":"THE Engine_Control_Unit SHALL DETECT THE faults OF THE sensor_system BY USING appropriate plausibility_checks"
+      },
+      {
+         "Reference":"test-Req_gen3",
+         "Requirement":"Req_gen3",         "Testobjects":["Engine_Control_Unit","faults","sensor_system","plausibility_checks"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],   
+   [
+      {
+         "Requirement":"Req_gen4",
+         "RequirementClassification":"SecurityFunctional",
+         "LESS Requirement":"THE Engine_Control_Unit SHALL monitor AND confirm THE Function_Controller"
+      },
+      {
+         "Reference":"test-Req_gen4",
+         "Requirement":"Req_gen4",
+         "Testobjects":["Engine_Control_Unit", "Function_Controller"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"Req_gen5_CUSTOM_CREATED",
+         "RequirementClassification":"SecurityFunctional",
+         "LESS Requirement":"IF Engine_Control_Unit IN safe_state THE System SHALL monitor Function_Controller"
+      },
+      {
+         "Reference":"test-Req_gen5_CUSTOM_CREATED",
+         "Requirement":"Req_gen5_CUSTOM_CREATED",
+         "Testobjects":["Engine_Control_Unit", "System", "Function_Controller"],
+         "PRE":{"safe_state":true},
+         "POST":{}
+      }
+   ]   
+]
+
+Now, generate test cases for the requirements as below:
+[
+
+    Requirement: Req_SZ_01 
+	RequirementClassification: SafetyGoal
+	{
+
+        THE System SHALL PREVENT dangerous unintended acceleration 
+    }
+
+    Requirement: Req_SZ_03 
+	RequirementClassification: SafetyGoal
+	{
+        THE System SHALL PREVENT dangerous unintended deceleration  
+    }    
+	
+	Requirement: Req_SZ_04 
+	RequirementClassification: SafetyGoal
+	{
+		THE System SHALL PREVENT unintended loss of deceleration
+	}
+
+    Requirement: SReq_01 
+	RequirementClassification: SafetyFunctional{
+        
+        THE Drive_Pedal SHALL CHECK THE sensor_signals OF THE Drive_Pedal FOR plausibility
+    }
+	
+    Requirement: SReq_01 
+	RequirementClassification: SafetyFunctional
+	{
+		THE Drive_Pedal SHALL CHECK THE internal sensor_signals OF THE Drive_Pedal FOR plausibility
+    }
+
+    Requirement: SReq_02 
+	RequirementClassification: SafetyFunctional
+	{
+        THE Throttle_Valve SHALL CHECK THE sensor_signals OF THE Throttle_Valve FOR plausibility
+    }
+	
+	Requirement: SReq_04
+	RequirementClassification:	SafetyFunctional
+	{
+		THE Engine_Control_Unit SHALL DETECT THE errors OF THE actuator BY USING appropriate plausibility_checks
+	}
+
+    Requirement: SReq_05 
+	RequirementClassification: SafetyFunctional
+	{
+		THE Engine_Control_Unit SHALL CHECK THE internal signals OF THE actuator FOR plausibility  
+    }    
+
+    Requirement: SReq_05a 
+	RequirementClassification: SafetyFunctional
+	{
+        THE Engine_Control_Unit SHALL DETECT AND confirm unintended acceleration
+    }
+
+    Requirement: SReq_06a 
+	RequirementClassification: SafetyFunctional
+	{
+        THE Engine_Control_Unit SHALL monitor THE Function_Controller   
+	}
+
+    Requirement: SReq_06a2 
+	RequirementClassification: SafetyFunctional
+	{
+        THE System SHALL protect THE integrity OF THE Lamp_switch_on_request AGAINST spoofing
+    }    
+
+    Requirement: SReq_06b 
+	RequirementClassification: SafetyFunctional
+	{
+        THE Navigation_ECU SHALL DETECT malicious control_signals
+    }
+	
+    Requirement: SReq_06b2 	
+	RequirementClassification: SafetyFunctional
+	{        
+        THE Navigation_ECU SHALL PREVENT malicious control_signals FROM being_transmitted
+    } 
+
+    Requirement: SReq_07 	
+	RequirementClassification: SafetyFunctional{
+
+        THE Gateway SHALL DETECT malicious control_signals
+    }
+	
+	Requirement: Req_SEC_ISO10 
+	RequirementClassification: SecurityGoal
+	{			
+		THE Gateway SHALL drop malicious control_signals 
+	}
+]

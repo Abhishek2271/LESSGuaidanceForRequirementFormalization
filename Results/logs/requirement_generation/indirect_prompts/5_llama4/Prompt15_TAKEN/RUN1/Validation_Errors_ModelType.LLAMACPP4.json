@@ -1,0 +1,62 @@
+[
+    {
+        "Line_number": 2,
+        "LESS": "THE System SHALL PREVENT hazardous unintended acceleration",
+        "Error": "None:108:30: Unknown object \"hazardous\" of class \"ObjectAttribute\""
+    },
+    {
+        "Line_number": 8,
+        "LESS": "THE Engine_Control_Unit SHALL protect torque_signals_affecting_requirements_of_other_ECUs BY USING a signal_compound",
+        "Error": "None:108:43: Unknown object \"torque_signals_affecting_requirements_of_other_ECUs\" of class \"ObjectAttribute\""
+    },
+    {
+        "Line_number": 11,
+        "LESS": "THE Engine_Control_Unit SHALL DETECT AND confirm THE undesired High driving_torque state",
+        "Error": "None:108:73: Unknown object \"driving_torque\" of class \"OBJECT\""
+    },
+    {
+        "Line_number": 13,
+        "LESS": "IF undesired High driving_torque IS detected THEN THE Engine_Control_Unit SHALL SWITCH TO safe_state",
+        "Error": "None:108:23: Unknown object \"driving_torque\" of class \"OBJECT\""
+    },
+    {
+        "Line_number": 14,
+        "LESS": "IF acceleration IS NOT intended THEN THE Engine_Control_Unit SHALL SWITCH TO safe_state",
+        "Error": "None:108:28: Unknown object \"intended\" of class \"OBJECT\""
+    },
+    {
+        "Line_number": 17,
+        "LESS": "THE Navigation_ECU SHALL DETECT THE control_signals THAT ARE malicious",
+        "Error": "None:108:57: Unknown object \"THAT\" of class \"OBJECT\""
+    },
+    {
+        "Line_number": 19,
+        "LESS": "THE Gateway SHALL DETECT THE control_signals THAT ARE malicious",
+        "Error": "None:108:50: Unknown object \"THAT\" of class \"OBJECT\""
+    },
+    {
+        "Line_number": 20,
+        "LESS": "THE Gateway SHALL drop THE malicious control_signals THAT ARE detected",
+        "Error": "None:108:58: Unknown object \"THAT\" of class \"OBJECT\""
+    },
+    {
+        "Line_number": 21,
+        "LESS": "THE Power_Switch SHALL DETECT THE spoofing OF THE Lamp_switch_on_request BY VERIFYING its MAC",
+        "Error": "None:108:78: Unknown object \"BY\" of class \"OBJECT\""
+    },
+    {
+        "Line_number": 22,
+        "LESS": "THE Power_Switch SHALL drop THE Lamp_switch_on_request THAT ARE detected AS spoofed",
+        "Error": "None:108:60: Unknown object \"THAT\" of class \"OBJECT\""
+    },
+    {
+        "Line_number": 23,
+        "LESS": "IF A request IS made THEN THE Body_Control_ECU SHALL GENERATE a MAC FOR THE Lamp_switch_on_request",
+        "Error": "None:108:8: Expected 'NOT' or '(' or STRING or ')' or 'IN' or 'FROM' or 'TO' => '\t{ \t\t\t\tIF *A request '"
+    },
+    {
+        "Line_number": 24,
+        "LESS": "THE Body_Control_ECU SHALL TRANSMIT THE generated MAC OF THE Lamp_switch_on_request WITH its MAC",
+        "Error": "None:108:32: Unknown object \"TRANSMIT\" of class \"Verb\""
+    }
+]

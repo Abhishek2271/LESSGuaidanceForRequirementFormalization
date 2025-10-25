@@ -1,0 +1,46 @@
+[
+    {
+        "Line_number": 1,
+        "LESS": "THE System SHALL PREVENT dangerous unintended acceleration"
+    },
+    {
+        "Line_number": 5,
+        "LESS": "THE Drive_Pedal SHALL CHECK THE sensor_signals OF THE Drive_Pedal FOR plausibility"
+    },
+    {
+        "Line_number": 6,
+        "LESS": "THE Drive_Pedal SHALL CHECK THE internal sensor_signals OF THE Drive_Pedal FOR plausibility"
+    },
+    {
+        "Line_number": 7,
+        "LESS": "THE Throttle_Valve SHALL CHECK THE sensor_signals OF THE Throttle_Valve FOR plausibility"
+    },
+    {
+        "Line_number": 9,
+        "LESS": "THE Engine_Control_Unit SHALL DETECT THE errors OF THE actuator BY USING appropriate plausibility_checks"
+    },
+    {
+        "Line_number": 11,
+        "LESS": "THE Engine_Control_Unit SHALL DETECT AND confirm THE undesired high_driving_torque state"
+    },
+    {
+        "Line_number": 12,
+        "LESS": "THE Engine_Control_Unit SHALL DETECT AND confirm THE unintended acceleration"
+    },
+    {
+        "Line_number": 15,
+        "LESS": "THE Engine_Control_Unit SHALL monitor THE Function_Controller"
+    },
+    {
+        "Line_number": 16,
+        "LESS": "THE System SHALL protect THE integrity OF THE Lamp_switch_on_request AGAINST spoofing"
+    },
+    {
+        "Line_number": 18,
+        "LESS": "THE Navigation_ECU SHALL PREVENT malicious control_signals FROM being_transmitted"
+    },
+    {
+        "Line_number": 25,
+        "LESS": "THE Gateway SHALL NOT transfer THE signals FROM THE Navigation_ECU TO THE Headlamp_system EXCEPT FOR THE signals IN THE white_list"
+    }
+]

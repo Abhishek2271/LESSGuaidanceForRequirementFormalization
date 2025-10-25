@@ -1,0 +1,321 @@
+   Project Iso{
+
+     RequirementClassification:[
+        SafetyGoal
+        SafetyFunctional
+        SafetyTechnical
+	    
+        SecurityGoal
+	    SecurityFunctional
+	    SecurityTechnical
+		
+    ],
+
+    Variables: [
+        
+    ],
+    Verbs: [
+
+      detect,
+      drop,
+      generate,
+      transmit,
+
+      verify,
+      protect,
+
+      generated,
+
+      transfer,
+
+      verifying
+
+    ],
+
+     Objects: [           /*KB*/
+      accessing,      
+      entities,
+      being_transmitted,
+      signals_in_white_list 
+      integrity,
+      Lamp_switch_on_request,
+      received_data,
+	  MAC,
+      request,
+      signals, 
+
+      white_list     
+
+      
+    ],
+    
+
+     ObjectAttribute:[       /*KB*/
+     unauthenticated
+	malicious
+	detected 
+	spoofed,
+
+    spoofing
+
+    ],
+
+
+    Conditions: [
+
+    ],
+
+  
+    Components: [
+
+       Navigation_ECU,
+       System,
+       Cellular_network,
+       Gateway,
+       Power_Switch,
+       Body_Control_ECU,
+       cellular_network,
+       control_signals,
+       Headlamp_system
+
+    ],
+
+    States: [
+
+    ],
+
+
+    Sets: [
+
+    ],
+
+    Requirements : [
+        
+
+        Requirement  Req_SEC_ISO10  SecurityGoal{
+
+            /* Lamp switch on request integrity shall be protected against spoofing  */
+	        THE System 
+            SHALL protect	
+            THE integrity OF Lamp_switch_on_request 
+            AGAINST spoofing                           /*KB*/
+  
+
+            /* Aktuator fehlt in der Anforderung  -> soll immer mit dabei sein */
+
+        },
+
+
+        Requirement  Req_SEC_ISO20  SecurityFunctional{
+
+
+
+            /* The Navigation ECU shall verify whether the received data was sent from valid entity  */
+	    
+        /* (EINE ELEGANTE) UMSETZUNG MIT DER DSL NICHT MÃƒâ€“GLICH (Sad) */ 
+            THE Navigation_ECU 
+            SHALL verify 
+            IF received: data WAS sent from valid: entity.
+            
+            THE Navigation_ECU 
+            SHALL verify 
+            WETHER received: data 
+            WAS sent 
+            FROM valid: entity.
+            
+            
+            
+           " whether received data was sent from valid entity." /*KB*/
+            
+
+            /* WETHER THE Sender of the reveiced: Data was a valid: entity. */
+
+            /* Wether -> Ausgang offen , IF - Erwartung */
+
+            
+            /* "Wether" nicht moeglich, ergaenzen? */            
+            /* IF erwartet AND dahinter? */            
+            /* "received data WAS sent from valid entity" nicht moeglich */            
+            /* -> IF bedingung ueberarbeiten -> IF <OBJ> IS/WAS <verb> FROM/BY USING... <Obj> ? */
+
+            /* HSC 20220810 - Wo ist hier das Problem? */
+
+        },
+            
+        Requirement  Req_SEC_ISO30  SecurityFunctional{
+
+
+
+            /* The Cellular network shall prevent unauthenticated entities from accessing to the cellular network.  */
+
+            THE Cellular_network
+            SHALL PREVENT unauthenticated: entities 
+            FROM accessing
+            TO THE cellular_network 
+
+            /* "accessing TO the cellular network" nicht moeglich */
+            /* accessing muss zu Components/Variables - Kategorien ueberarbeiten? */
+
+        },
+    
+
+        Requirement  Req_SEC_ISO40  SecurityFunctional{
+
+
+
+            /* The Navigation ECU shall detect malicious control signals..  */
+
+            THE Navigation_ECU
+            SHALL DETECT malicious: control_signals.
+
+        },
+
+        
+
+        Requirement  Req_SEC_ISO41  SecurityFunctional{
+
+
+
+            /* The Navigation ECU shall prevent malicious control signals from being transmitted.  */
+
+            THE Navigation_ECU
+            SHALL PREVENT malicious: control_signals 
+            FROM being_transmitted     /*KB*/
+            
+        },
+
+    
+
+        Requirement  Req_SEC_ISO50  SecurityFunctional{
+
+
+
+            /* The Gateway shall detect malicious control signals.  */
+
+            THE Gateway
+            SHALL DETECT malicious: control_signals.
+            
+        },
+
+        
+
+         Requirement  Req_SEC_ISO51  SecurityFunctional{
+
+
+
+            /* The Gateway shall drop detected malicious control signals.  */
+
+            THE Gateway
+            SHALL drop
+            detected malicious: control_signals.
+
+        },
+
+        
+
+        Requirement  Req_SEC_ISO60  SecurityFunctional{
+
+
+
+            /* The Power Switch shall detect spoofing of the Lamp Switch On Request by verifying its MAC.  */
+
+            THE Power_Switch
+            SHALL DETECT  THE spoofing 
+            OF Lamp_switch_on_request 
+
+            WITH verifying 
+            THE MAC
+            OF THE Power_Switch
+
+             
+            /* HSC 20220810 - spoofing ohne THE weiter nicht moeglich. Wird dann zu einem Object attribute */
+            /* HSC 20220810 - spoofing ohne THE soll hier Object Attribute sein? */
+
+            /* HSC 20220810 - BY verifying nicht moeglich -> zu 11 ergaenzen? */
+
+            
+
+        },
+
+        
+
+        Requirement  Req_SEC_ISO61 SecurityFunctional{
+
+
+
+            /* The Power Switch shall drop detected spoofed Lamp Switch On Requests.  */
+
+            THE Power_Switch
+            SHALL drop
+            detected spoofed: Lamp_switch_on_request.
+
+        },
+
+                
+
+        Requirement  Req_SEC_ISO70  SecurityFunctional{
+
+
+
+            /* The Body Control ECU shall generate a MAC for a Lamp Switch On Requests.  */
+
+           IF request
+           THE Body_Control_ECU
+           SHALL generate
+           A MAC 
+           FOR Lamp_switch_on_request
+
+        },
+
+        
+
+        Requirement  Req_SEC_ISO71  SecurityFunctional{
+
+            /* The Body Control ECU shall transmit the generated MAC for a Lamp Switch On Request with its MAC.  */
+
+            THE Body_Control_ECU
+            SHALL transmit 
+            THE generated: MAC 
+            FOR A Lamp_switch_on_request 
+            WITH THE MAC 
+            OF Body_Control_ECU
+
+        },
+
+        
+
+        Requirement  Req_SEC_ISO72  SecurityTechnical{
+
+
+
+            /* The Gateway shall not transfer any signals from the Navigation ECU to the Headlamp 
+	system except for signals in a white list.  */
+
+            /* IF ... THEN */
+
+            /* IF THE Signals ARE NOT IN white_list */
+            
+
+            THE Gateway
+            SHALL NOT transfer
+            /* ANY signals */
+            THE signals
+            FROM Navigation_ECU TO Headlamp_system  
+            EXCEPT FOR signals 
+            IN white_list.   /*KB*/
+
+            /* HSC 20220810 - ANY nicht moeglich ->  zu 10 eraenzen? */
+
+            /* "signals" ohne "THE" nicht moeglich */
+            /* -> Alternativ IF Bedingung am Anfang ermoeglichen? */
+
+            
+
+        }
+
+
+
+        
+    ]
+
+}

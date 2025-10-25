@@ -1,0 +1,212 @@
+[
+   [
+      {
+         "Requirement":"Req_SZ_01",
+         "RequirementClassification":"SafetyGoal",
+         "LESS Requirement":"THE System SHALL PREVENT dangerous unintended acceleration"
+      },
+      {
+         "Reference":"test-Req_SZ_01",
+         "Requirement":"Req_SZ_01",
+         "Testobjects":["System", "acceleration"],
+         "PRE":{ },
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"Req_SZ_03",
+         "RequirementClassification":"SafetyGoal",
+         "LESS Requirement":"THE System SHALL PREVENT dangerous unintended deceleration"
+      },
+      {
+         "Reference":"test-Req_SZ_03",
+         "Requirement":"Req_SZ_03",
+         "Testobjects":["System", "deceleration"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"Req_SZ_04",
+         "RequirementClassification":"SafetyGoal",
+         "LESS Requirement":"THE System SHALL PREVENT unintended loss of deceleration"
+      },
+      {
+         "Reference":"test-Req_SZ_04",
+         "Requirement":"Req_SZ_04",
+         "Testobjects":["System", "deceleration"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"SReq_01",
+         "RequirementClassification":"SafetyFunctional",
+         "LESS Requirement":"THE Drive_Pedal SHALL CHECK THE sensor_signals OF THE Drive_Pedal FOR plausibility"
+      },
+      {
+         "Reference":"test-SReq_01",
+         "Requirement":"SReq_01",
+         "Testobjects":["Drive_Pedal", "sensor_signals", "plausibility"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"SReq_01",
+         "RequirementClassification":"SafetyFunctional",
+         "LESS Requirement":"THE Drive_Pedal SHALL CHECK THE internal sensor_signals OF THE Drive_Pedal FOR plausibility"
+      },
+      {
+         "Reference":"test-SReq_01_int",
+         "Requirement":"SReq_01",
+         "Testobjects":["Drive_Pedal", "sensor_signals", "plausibility"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"SReq_02",
+         "RequirementClassification":"SafetyFunctional",
+         "LESS Requirement":"THE Throttle_Valve SHALL CHECK THE sensor_signals OF THE Throttle_Valve FOR plausibility"
+      },
+      {
+         "Reference":"test-SReq_02",
+         "Requirement":"SReq_02",
+         "Testobjects":["Throttle_Valve", "sensor_signals", "plausibility"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"SReq_04",
+         "RequirementClassification":"SafetyFunctional",
+         "LESS Requirement":"THE Engine_Control_Unit SHALL DETECT THE errors OF THE actuator BY USING appropriate plausibility_checks"
+      },
+      {
+         "Reference":"test-SReq_04",
+         "Requirement":"SReq_04",
+         "Testobjects":["Engine_Control_Unit", "errors", "actuator", "plausibility_checks"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"SReq_05",
+         "RequirementClassification":"SafetyFunctional",
+         "LESS Requirement":"THE Engine_Control_Unit SHALL CHECK THE internal signals OF THE actuator FOR plausibility"
+      },
+      {
+         "Reference":"test-SReq_05",
+         "Requirement":"SReq_05",
+         "Testobjects":["Engine_Control_Unit", "signals", "actuator", "plausibility"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"SReq_05a",
+         "RequirementClassification":"SafetyFunctional",
+         "LESS Requirement":"THE Engine_Control_Unit SHALL DETECT AND confirm unintended acceleration"
+      },
+      {
+         "Reference":"test-SReq_05a",
+         "Requirement":"SReq_05a",
+         "Testobjects":["Engine_Control_Unit", "acceleration"],
+         "PRE":{ },
+         "POST":{ }
+      }
+   ],
+   [
+      {
+         "Requirement":"SReq_06a",
+         "RequirementClassification":"SafetyFunctional",
+         "LESS Requirement":"THE Engine_Control_Unit SHALL monitor THE Function_Controller"
+      },
+      {
+         "Reference":"test-SReq_06a",
+         "Requirement":"SReq_06a",
+         "Testobjects":["Engine_Control_Unit", "Function_Controller"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"SReq_06a2",
+         "RequirementClassification":"SafetyFunctional",
+         "LESS Requirement":"THE System SHALL protect THE integrity OF THE Lamp_switch_on_request AGAINST spoofing"
+      },
+      {
+         "Reference":"test-SReq_06a2",
+         "Requirement":"SReq_06a2",
+         "Testobjects":["System", "Lamp_switch_on_request", "integrity"],
+         "PRE":{},
+         "POST":{ }
+      }
+   ],
+   [
+      {
+         "Requirement":"SReq_06b",
+         "RequirementClassification":"SafetyFunctional",
+         "LESS Requirement":"THE Navigation_ECU SHALL DETECT malicious control_signals"
+      },
+      {
+         "Reference":"test-SReq_06b",
+         "Requirement":"SReq_06b",
+         "Testobjects":["Navigation_ECU", "control_signals"],
+         "PRE":{ },
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"SReq_06b2",
+         "RequirementClassification":"SafetyFunctional",
+         "LESS Requirement":"THE Navigation_ECU SHALL PREVENT malicious control_signals FROM being_transmitted"
+      },
+      {
+         "Reference":"test-SReq_06b2",
+         "Requirement":"SReq_06b2",
+         "Testobjects":["Navigation_ECU", "control_signals"], 
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"SReq_07",
+         "RequirementClassification":"SafetyFunctional",
+         "LESS Requirement":"THE Gateway SHALL DETECT malicious control_signals"
+      },
+      {
+         "Reference":"test-SReq_07",
+         "Requirement":"SReq_07",
+         "Testobjects":["Gateway", "control_signals"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"Req_SEC_ISO10",
+         "RequirementClassification":"SecurityGoal",
+         "LESS Requirement":"THE Gateway SHALL drop malicious control_signals"
+      },
+      {
+         "Reference":"test-Req_SEC_ISO10",
+         "Requirement":"Req_SEC_ISO10",
+         "Testobjects":["Gateway", "control_signals"],
+         "PRE":{},
+         "POST":{}
+      }
+   ]
+]

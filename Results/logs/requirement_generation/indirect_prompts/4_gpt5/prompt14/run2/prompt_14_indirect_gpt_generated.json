@@ -1,0 +1,102 @@
+[
+  {
+    "nlp": "The system should prevent dangerous unintended acceleration",
+    "LESS": "THE System SHALL PREVENT dangerous unintended acceleration"
+  },
+  {
+    "nlp": "The system should avert hazardous unintended acceleration",
+    "LESS": "THE System SHALL PREVENT dangerous unintended acceleration"
+  },
+  {
+    "nlp": "Any dangerous unintended deceleration shall be prevented by the system",
+    "LESS": "THE System SHALL PREVENT dangerous unintended deceleration"
+  },
+  {
+    "nlp": "The system should prevent loss of deceleration that is unintended",
+    "LESS": "THE System SHALL PREVENT unintended loss of deceleration"
+  },
+  {
+    "nlp": "The drive pedal should check the sensor signals of the drive pedal for plausibility",
+    "LESS": "THE Drive_Pedal SHALL CHECK THE sensor_signals OF THE Drive_Pedal FOR plausibility"
+  },
+  {
+    "nlp": "The drive pedal must check its internal sensor signals for plausibility",
+    "LESS": "THE Drive_Pedal SHALL CHECK THE internal sensor_signals OF THE Drive_Pedal FOR plausibility"
+  },
+  {
+    "nlp": "The throttle valve shall check the sensor signals of the throttle valve for plausibility",
+    "LESS": "THE Throttle_Valve SHALL CHECK THE sensor_signals OF THE Throttle_Valve FOR plausibility"
+  },
+  {
+    "nlp": "The engine control unit should protect torque-related signals affecting other ECUs using a signal compound",
+    "LESS": "THE Engine_Control_Unit SHALL PROTECT THE torque_signals_affecting_requirements_of_other_ECUs BY USING signal_compound"
+  },
+  {
+    "nlp": "using appropriate plausibility checks the engine control unit must detect errors in the actuator",
+    "LESS": "THE Engine_Control_Unit SHALL DETECT THE errors OF THE actuator BY USING appropriate plausibility_checks"
+  },
+  {
+    "nlp": "The engine control unit must check internal actuator signals for plausibility",
+    "LESS": "THE Engine_Control_Unit SHALL CHECK THE internal control_signals OF THE actuator FOR plausibility"
+  },
+  {
+    "nlp": "The engine control unit shall detect and confirm any undesired high driving torque state",
+    "LESS": "THE Engine_Control_Unit SHALL DETECT AND confirm THE undesired High high_driving_torque state"
+  },
+  {
+    "nlp": "unintended acceleration shall be detected and confirmed by the engine control unit",
+    "LESS": "THE Engine_Control_Unit SHALL DETECT AND confirm unintended acceleration"
+  },
+  {
+    "nlp": "If undesired high driving torque is detected, the engine control unit must switch to a safe state",
+    "LESS": "IF undesired High high_driving_torque IS detected THEN THE Engine_Control_Unit SHALL SWITCH TO safe_state"
+  },
+  {
+    "nlp": "The engine control unit must switch to a safe state, if acceleration is not intended",
+    "LESS": "IF NOT acceleration IS intended THEN THE Engine_Control_Unit SHALL SWITCH TO safe_state"
+  },
+  {
+    "nlp": "The engine control unit should monitr the function controllr",
+    "LESS": "THE Engine_Control_Unit SHALL monitor THE Function_Controller"
+  },
+  {
+    "nlp": "Integrity of the lamp switch on request should be protected against spoofing by the system",
+    "LESS": "THE System SHALL PROTECT THE integrity OF THE Lamp_switch_on_request AGAINST spoofing"
+  },
+  {
+    "nlp": "The navigation ECU must detect control signals that are malicious",
+    "LESS": "THE Navigation_ECU SHALL DETECT malicious control_signals"
+  },
+  {
+    "nlp": "The navigation ECU should avoid malicious control signals from being transmitted",
+    "LESS": "THE Navigation_ECU SHALL PREVENT malicious control_signals FROM being_transmitted"
+  },
+  {
+    "nlp": "Control signals that are malicious must be detected by the gateway",
+    "LESS": "THE Gateway SHALL DETECT malicious control_signals"
+  },
+  {
+    "nlp": "The gateway shall drop any detected malicious control signals",
+    "LESS": "THE Gateway SHALL drop detected malicious control_signals"
+  },
+  {
+    "nlp": "The power switch must detect spoofing of the lamp switch-on request by verifying its MAC",
+    "LESS": "THE Power_Switch SHALL DETECT spoofing OF THE Lamp_switch_on_request BY verifying THE MAC"
+  },
+  {
+    "nlp": "Lamp switch-on request that are detected as spoofed, should be dropped by the power switch",
+    "LESS": "THE Power_Switch SHALL drop detected spoofed Lamp_switch_on_request"
+  },
+  {
+    "nlp": "If a request is made, the body control ECU must generate a MAC for the lamp switch-on request",
+    "LESS": "IF request IS made THEN THE Body_Control_ECU SHALL generate MAC FOR THE Lamp_switch_on_request"
+  },
+  {
+    "nlp": "The body control ECU shall transmit the generated MAC for a lamp switch-on request along with its own MAC",
+    "LESS": "THE Body_Control_ECU SHALL transmit generated MAC FOR THE Lamp_switch_on_request ALONG WITH ITS OWN MAC"
+  },
+  {
+    "nlp": "The gateway must not transfer the signals from the navigation ECU to the headlamp system except for those included in the whitelist",
+    "LESS": "THE Gateway SHALL NOT transfer THE signals FROM THE Navigation_ECU TO THE Headlamp_system EXCEPT FOR signals_in_white_list"
+  }
+]

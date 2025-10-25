@@ -1,0 +1,86 @@
+[
+    {
+        "test_case_id": "TC_001 (Req_01a)",
+        "requirement_id": "Req_01a",
+        "precondition": "compact_drive IN failed STATE AND clinical_ui IN is_running STATE",
+        "behaviour": "THE clinical_ui SHALL SWITCH THE compact_drive TO is_running",
+        "test_input": null
+    },
+    {
+        "test_case_id": "TC_002 (Req_02a)",
+        "requirement_id": "Req_02a",
+        "precondition": "compact_drive IN failed AND clinical_ui IN is_running",
+        "behaviour": "THE clinical_ui SHALL SWITCH THE compact_drive TO is_running",
+        "test_input": null
+    },
+    {
+        "test_case_id": "TC_003 (Req_03a)",
+        "requirement_id": "Req_03a",
+        "precondition": "compact_drive IN failed STATE",
+        "behaviour": "THE clinical_ui SHALL SWITCH THE compact_drive TO is_running",
+        "test_input": null
+    },
+    {
+        "test_case_id": "TC_004 (Req_04a)",
+        "requirement_id": "Req_04a",
+        "precondition": "compact_drive IN failed STATE AND clinical_ui IN is_running STATE",
+        "behaviour": "THE clinical_ui SHALL SWITCH TO is_running",
+        "test_input": null
+    },
+    {
+        "test_case_id": "TC_005 (Req_05a)",
+        "requirement_id": "Req_05a",
+        "precondition": "compact_drive IN failed STATE AND clinical_ui IN is_running STATE",
+        "behaviour": "THE clinical_ui SHALL SWITCH AND ALLOW THE compact_drive TO is_running",
+        "test_input": null
+    },
+    {
+        "test_case_id": "TC_006 (Req_06a)",
+        "requirement_id": "Req_06a",
+        "precondition": "compact_drive IN failed STATE AND clinical_ui IN is_running STATE",
+        "behaviour": "THE is_running SHALL SWITCH THE is_running TO is_running",
+        "test_input": null
+    },
+    {
+        "test_case_id": "TC_007 (Req_07a)",
+        "requirement_id": "Req_07a",
+        "precondition": "compact_drive IN failed STATE",
+        "behaviour": "THE clinical_ui SHALL SWITCH A compact_drive TO is_running",
+        "test_input": null
+    },
+    {
+        "test_case_id": "TC_008 (Req_08a)",
+        "requirement_id": "Req_08a",
+        "precondition": "compact_drive IN failed STATE",
+        "behaviour": "THE clinical_ui SHALL SWITCH ANY compact_drive TO is_running",
+        "test_input": null
+    },
+    {
+        "test_case_id": "TC_009 (Req_09a)",
+        "requirement_id": "Req_09a",
+        "precondition": "compact_drive IN failed STATE",
+        "behaviour": "THE clinical_ui SHALL SWITCH THE systolic_pressure TO is_running",
+        "test_input": null
+    },
+    {
+        "test_case_id": "TC_0010 (Req_10a)",
+        "requirement_id": "Req_10a",
+        "precondition": "compact_drive IN failed STATE",
+        "behaviour": "THE clinical_ui SHALL NOT SWITCH THE compact_drive TO is_running",
+        "test_input": null
+    },
+    {
+        "test_case_id": "TC_0011 (Req_11a)",
+        "requirement_id": "Req_11a",
+        "precondition": "failed IN failed AND clinical_ui IN is_running STATE",
+        "behaviour": "THE is_running SHALL SWITCH A compact_drive",
+        "test_input": null
+    },
+    {
+        "test_case_id": "TC_0012 (Req_12a)",
+        "requirement_id": "Req_12a",
+        "precondition": "NOT compact_drive IN failed STATE",
+        "behaviour": "THE clinical_ui SHALL NOT SWITCH THE clinical_ui TO is_running",
+        "test_input": null
+    }
+]

@@ -1,0 +1,478 @@
+Project Egas {
+     RequirementClassification:[
+        SafetyGoal
+        SafetyFunctional
+        SafetyTechnical
+	    
+        SecurityGoal
+	    SecurityFunctional
+	    SecurityTechnical
+	
+	
+    ],
+
+    
+    Variables: [
+
+        plausibility_checks,   
+
+        faults,
+
+        errors
+    ],
+
+    
+     Objects: [       
+      acceleration,
+      deceleration,
+      plausibility,
+      torque_signals_affecting_requirements_of_other_ECUs,
+
+      signals,
+
+      state,
+
+      State,
+
+      states,
+
+      sensor_signals,       
+
+      torque_signals,
+
+      Driving_Torque   
+
+             
+
+      
+    ],
+
+    Verbs: [
+       protect,
+       monitor,
+       detect,
+       confirm
+
+    ],
+
+    ObjectAttribute:[       /*KB*/
+        dangerous,
+        unintended,
+        loss,
+
+        of,
+        internal,
+        appropriate,
+        Undesired,
+        Unintended,
+
+        safe,
+
+        High
+
+    ],
+    
+     Conditions: [
+
+         
+       
+    ],
+    Components: [
+       System,
+       Drive_Pedal,
+       Throttle_Valve,
+       Engine_Control_Unit,
+       Function_Controller,       
+       sensor_system,
+       signal_compound,
+       other_ECUs,
+       Mensor
+
+       
+    ],
+
+       
+
+    States: [
+       safe_state
+       
+    ],
+
+    
+    Requirements: [
+        /* Prevent dangerous unintended acceleration */
+
+        Requirement Req_SZ_01 SafetyGoal{
+
+            
+
+            THE System 
+
+            SHALL PREVENT dangerous unintended: acceleration     /*KB: attribute wurden oben definiert; acceleration als object definiert*/
+
+
+            /* PREVENT am Satzanfang geht nicht */   
+            /* -> Ist nicht gewollt da immer ein Aktuator genant werden muss. */
+
+            /* object muss als "Component" oder " Variables" definiert werden */
+             /*KB: Object wird als Deklarationsblock eingefuehrt */
+
+             
+
+            
+        } ,            
+
+        
+
+        /* Perevent dangerous unintended loss of acceleration */
+        Requirement Req_SZ_02 SafetyGoal{
+
+        THE System 
+        SHALL PREVENT unintended loss of: acceleration
+
+            /* PREVENT am Satzanfang geht nicht */
+            /* -> Ist nicht gewollt da immer ein Aktuator genant werden muss. */ 
+
+            
+
+            /*HSC 20220810 "Loss_of" augeteilt */
+
+        } ,            
+
+        
+
+        /* Prevent dangerous unintended deceleration */
+        Requirement Req_SZ_03 SafetyGoal{
+
+            THE System 
+            SHALL PREVENT 
+            dangerous unintended deceleration          /*KB*/
+
+
+            /* PREVENT am Satzanfang geht nicht */
+            /* -> Ist nicht gewollt da immer ein Aktuator genant werden muss. */ 
+
+        } ,            
+      
+
+        /* Perevent dangerous unintended loss of deceleration */
+
+        Requirement Req_SZ_04 SafetyGoal{
+
+        THE System 
+        SHALL PREVENT unintended loss of: deceleration  /*KB*/
+
+
+            /* PREVENT am Satzanfang geht nicht */
+            /* -> Ist nicht gewollt da immer ein Aktuator genant werden muss. */ 
+
+                        
+
+        } ,      
+
+        
+
+        /* The Drive Pedal shall check the sensor signals of the Drive Pedal 
+        for plausibility. */
+
+        Requirement SReq_01 SafetyFunctional{
+            
+            THE Drive_Pedal 
+            SHALL CHECK 
+            THE sensor_signals OF 
+            THE Drive_Pedal
+            FOR plausibility
+            
+            
+        } ,                    
+
+        /* The Drive Pedal shall check its internal sensor signals for plausibility. */
+        Requirement SReq_01 SafetyFunctional{
+
+        THE Drive_Pedal 
+        SHALL CHECK internal : sensor_signals
+        OF THE Drive_Pedal 
+        FOR plausibility
+
+
+            /* "ITS" nicht moeglich -> "ITS" vor Object ergaenzen */
+            /* -> Nicht ergaenzen. besser: THE Drive_Pedal  SHALL CHECK THE "internal": sensor_signals OF THE DRIVE_Pedal? */
+
+        },              
+
+        
+
+        /* The Throttle Valve shall check the sensor signals of the Throttle Valve for plausibility. */
+
+        Requirement SReq_02 SafetyFunctional{
+
+            THE Throttle_Valve 
+            SHALL CHECK THE sensor_signals
+            OF THE Throttle_Valve
+            FOR plausibility
+
+        } ,     
+
+        /* The Throttle Valve shall check its internal sensor signals for plausibility. */
+
+        Requirement SReq_02 SafetyFunctional{
+
+        THE Throttle_Valve
+        SHALL CHECK THE internal: sensor_signals
+        OF THE Throttle_Valve
+        FOR plausibility
+
+        } ,     
+
+        
+
+        /* The Engine Control Unit shall detect faults in the Sensor System
+         by using appropriate plausibility checks. */
+
+        Requirement SReq_03 SafetyFunctional{
+
+            
+
+            THE Engine_Control_Unit
+            SHALL DETECT THE faults 
+            OF THE sensor_system 
+            BY USING appropriate: plausibility_checks    /*KB*/
+
+
+            /* faults ohne "THE" nicht moeglich - noch aendern? */
+            /*KB: gemae Grammatik zurzeit nicht moeglich 'THE' weglassen*/
+
+            
+
+            /* HC 20220810 impliziert das das alle sind... */
+
+            
+
+            /* Laut DSL kann es weggelassen werden. (technisches Problem) */
+
+            
+        } ,    
+
+        
+
+        /* The Engine Control Unit shall protect torque signals affecting requirements of other ECUs
+         by using a signal compound. */
+
+         
+
+         Requirement SReq_04 SafetyFunctional{
+
+            THE Engine_Control_Unit
+            SHALL protect 
+
+            THE torque_signals_affecting_requirements_of_other_ECUs 
+
+            BY USING A signal_compound.
+
+
+
+            /* "affecting requirements of other ECUs by using a signal compound." nicht moeglich */            
+
+            /* -> FROM zu 11 ergaenzen, mehrere Verkettugnen moeglich machen */
+
+            
+
+            /* Which ergÃ¤nzen? -> "THOSE statt "THE" */
+
+            
+
+        } ,    
+
+        Requirement SReq_04_HSC SafetyFunctional{
+
+
+            THE Engine_Control_Unit
+            SHALL protect 
+            THE torque_signals
+            /* WHICH ARE affecting: requirements */
+            WHICH ARE affect requirements
+
+            OF other_ECUs 
+            BY USING A signal_compound.
+
+            /* HSC 20220810 - WHICH oder "WHICH ARE"/WHICH IS" als Wort zu 11 ergÃƒÆ’Ã‚Â¤nzen? */
+            
+        } ,    
+        
+        /* The Engine Control Unit shall detect errors in the Actuator by using
+        appropriate plausibility checks. */
+
+        Requirement SReq_05 SafetyFunctional{
+
+            
+            THE Engine_Control_Unit
+
+            SHALL DETECT THE errors 
+
+            IN THE actuator
+
+            BY USING appropriate : plausibility_checks  /*KB: 'IN' wurde ergaenzt*/
+            
+            /* HSC 20220810 - Actuator als Object oben ergibt Fehler  */
+
+            /* Test mit Aktuator? */
+
+        } ,    
+
+        Requirement SReq_05a SafetyFunctional{
+
+
+
+            
+
+            THE Engine_Control_Unit
+
+            SHALL CHECK internal: signals 
+
+            OF THE "Actuator"
+
+            FOR plausibility
+
+            
+
+
+
+            /* THE Drive_Pedal 
+
+             SHALL CHECK internal : sensor_signals
+
+             OF THE Drive_Pedal 
+
+             FOR plausibility */
+
+            
+
+            /* HSC 20220810 - Actuator als Object oben ergibt Fehler  */
+
+            /* Test mit Aktuator? */
+
+
+
+        } ,    
+
+
+
+        
+
+        /* The Engine Control Unit shall detect and confirm Undesired States
+         of a High Driving Torque or an Unintended Acceleration. */
+
+        Requirement SReq_06a SafetyFunctional{
+
+            
+
+            THE Engine_Control_Unit
+            SHALL detect AND confirm Undesired: states OF High_Driving_Torque   
+
+            /*KB: detect und confirm  in Verbs definieren; Undesired  in ObjectAttribute */
+
+             /* States wird orange gefaerbt */  
+             /* States  existiert schon. Mit klein schreiben damit  als neues Wort erkannt wird */
+
+            } ,    
+
+
+            
+        /* The Engine Control Unit shall detect and confirm Undesired States 
+   	of a High Driving Torque or an Unintended Acceleration. */
+
+        Requirement SReq_06a2 SafetyFunctional{
+
+            THE Engine_Control_Unit
+            SHALL detect AND confirm Unintended: acceleration
+
+        } ,    
+      
+
+        /* In case of detected and confirmed Undesired State of a High Driving Torque 
+	or an Unintended Acceleration the Engine Control Unit shall switch into a safe state. */
+
+    
+	/* NICHT MIT DER DSL UMSETZBAR (Sad) */
+        Requirement SReq_06b SafetyFunctional{
+
+            IF Undesired: State OF /* A */ High_Driving_Torque /* IS "detected" AND "confirmed" */
+            Engine_Control_Unit
+	        SHALL SWITCH TO safe: state.
+
+            
+
+            
+
+            IF /* A */ Undesired High: Driving_Torque /* IS "detected" AND "confirmed" */
+
+            THE Engine_Control_Unit
+
+	        SHALL SWITCH TO safe: state.
+
+
+
+
+            /*  "States OF -> A High_Driving_Torque" leifert Fehlermeldung, sollte laut Template aber gehen */
+
+            /* IS "detected" AND "confirmed" nicht moeglich */
+
+            /* -> IF Bedingung ueberarbeiten -> IS bei 3 ergaenzen, "detected" AND "confirmed" 
+		wie hinter "SHALL" damit Zusammenhang hergestellt werden kann */
+
+            /* THE Engine_Control_Unit nicht moeglich wegen "OF High_Driving_Torque" ->
+ 		Mehrfach Anwendung moeglich machen */
+
+        
+
+            /* HSC 20220810 - Wo ist hier das Problem? */
+
+        } ,
+
+        
+
+        
+
+        Requirement SReq_06b2 SafetyFunctional{
+        /* NICHT MIT DER DSL UMSETZBAR (Sad) */
+            
+
+            IF Unintended: acceleration /* IS "detected" AND "confirmed" */
+            THE Engine_Control_Unit
+            SHALL SWITCH TO safe_state.
+
+
+            /* IS "detected" AND "confirmed" nicht moeglich */
+
+            /* -> IF Bedingung ueberarbeiten -> IS bei 3 ergaenzen, "detected" 
+		AND "confirmed" wie hinter "SHALL" damit Zusammenhang hergestellt werden kann */
+
+        
+
+        /* HSC 20220810 - Wo ist hier das Problem? */
+
+
+        } ,
+
+    
+
+         /* The Engine Control Unit shall monitor the Function Controller. */
+
+        Requirement SReq_07 SafetyFunctional{
+
+            
+
+            THE Engine_Control_Unit
+
+            SHALL monitor
+
+            THE Function_Controller . 
+
+            
+
+        }  
+            
+    
+    ]
+
+}

@@ -1,0 +1,111 @@
+Project Egas {
+     RequirementClassification:[
+        SafetyGoal
+        SafetyFunctional
+        SafetyTechnical	    
+        SecurityGoal
+	    SecurityFunctional
+	    SecurityTechnical
+    ],
+    
+    Variables: [
+        plausibility_checks,   
+        faults,
+		unintended_acceleration,
+        errors,
+		high_driving_torque
+    ],
+
+    
+    Objects: [       
+      acceleration,
+      deceleration,
+      plausibility,
+      torque_signals_affecting_requirements_of_other_ECUs,
+      signals,
+      state,
+      states,
+      sensor_signals,
+      torque_signals,
+      Driving_Torque,
+	  accessing,      
+      entities,
+      being_transmitted,
+      signals_in_white_list 
+      integrity,
+      Lamp_switch_on_request,
+      received_data,
+	  MAC,
+      request,
+      white_list
+    ],
+
+    Verbs: [
+       protect,
+       monitor,
+       detect,
+       confirm,
+       drop,
+       generate,
+       transmit,
+	   verify,
+       generated,
+       transfer,
+       verifying
+    ],
+
+    ObjectAttribute:[       /*KB*/
+        dangerous,
+        unintended,
+        loss,
+        of,
+        internal,
+        appropriate,
+        undesired,
+        safe,
+        High,
+		unauthenticated,
+		malicious,
+		detected,
+		spoofed,
+		spoofing
+    ],
+    
+	Conditions: [
+         
+       
+    ],
+	
+    Components: [
+       System,
+       Drive_Pedal,
+       Throttle_Valve,
+       Engine_Control_Unit,
+       Function_Controller,       
+       sensor_system,
+       signal_compound,
+       other_ECUs,
+       Mensor,
+	   Navigation_ECU,
+       Cellular_network,
+       Gateway,
+       Power_Switch,
+       Body_Control_ECU,
+       control_signals,
+       Headlamp_system,
+	   actuator
+    ],
+	
+    States: [
+       safe_state
+    ],
+
+    
+Requirements: [
+		Requirement: Req_SZ_01 
+		RequirementClassification: SecurityFunctional
+		{
+			THE System SHALL PREVENT dangerous unintended acceleration 
+		}
+	]
+}

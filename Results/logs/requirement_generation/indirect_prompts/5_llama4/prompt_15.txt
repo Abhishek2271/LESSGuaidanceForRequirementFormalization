@@ -1,0 +1,221 @@
+Your task is to convert the natural language requirements into LESS requirements. The LESS formatted requirements are controlled language requirements that follow the following rules:
+1. Conditional: each requirement begins with a "conditional" (optional). This could contain keywords: "IF" or "IF NOT" or "WHILE" or "DURING" or "AFTER" or "BEFORE" or "AS SOON AS" or "IN CASE OF". This is followed by either: 
+	a boolean state expression which could contain [Variables] or [Components] that can be concatenated with keyword "AND" then followed by keyword "IN" [States]; OR
+	a behaviour description that can begin with a transitional like "FROM" [States] and "TO" [States] or [Variables] or a [Components] or a boolean math expression or [Errors] and may be followed by "WAS" or "IS" and then [ObjectAttribute]. The boolean math expressions are [Variables] followed by a "LESS THAN", "GREATER THAN" or "EQUAL TO" and ending with an integer or [Variables]. Multiple of these conditionals can be concatenated with "AND".	
+  The conditional can end with "THEN" but is optional.	
+2. multiple object attributes that describe attributes of the subject from the [ObjectAttribute] list
+3. A Subject (Mandatory): The requirement must specify the specific subject it applies to. It can either be a specific subject or a set of components. This must begin with either "THE", "ANY", "ALL", "SOME", or "SOME SYSTEMS OF THE", which is then followed by a subject (mandatory) which could be a [Components] or [Variables] or [Errors] then may be followed by phrases like "OF", "BY USING", "FROM", "FOR", "IN", "AGAINST", "TO", "WITH", "EXCEPT FOR", "WHICH", "THAT" and end with a [Verbs]. 
+4. obligation (Mandatory): The modal verb defines obligation. Only two verbs possible: "SHALL" or "SHALL NOT"
+5. System Activity (Optional): This could be either provide_activity or be_able activity or a process_verb. Process_verb could only be "ENSURE", "DETECT", "SWITCH", "ALLOW", "PREVENT" OR "PREVENT FROM" OR "CHECK" or a [Verbs] from pre-defined list. Always use the process_verb in capital letters but all verbs in [Verbs] must be in small letter. The provide-activity must begin with "PROVIDE" followed by [Variables] or a [Components] then followed by "WITH THE ABILITY TO" or "TO" and then followed by any of the process_verbs described above. be_able activity must begin with "BE ABLE TO" followed by any of the process_verbs described above. Multiple of these activities can be then joined by "AND" which can then be followed by a transitional like FROM [States] and TO [States].
+6. object attributes(Optional): from the  [ObjectAttribute] list
+7. object: This can be object or specific object or all object or each object. They begin with THE, ANY, A, AN, ALL THE, or EACH. Followed by an object which could be any string or [Components] or [Variables] or [Errors] then followed by phrases like "OF", "BY USING", "FROM", "FOR", "IN", "AGAINST", "TO", "WITH", "EXCEPT FOR", "WHICH", "THAT", any may be followed by a [Verbs].
+8. External Condition (Optional): Adds additional conditions at the end of the requirement. It includes "IF AND ONLY IF" or "IF AND ONLY IF NOT" as starting phrase. This is followed by either a boolean state expression which could contain [Variables] or [Components]  that can be concatenated with keyword AND then followed by IN [States] or a behaviour description that can begin with a transitional like FROM [States] and TO [States] or [Variables] or a [Components] or a boolean math expression or [Errors] and may be followed by "WAS" or "IS" and may be followed by [ObjectAttribute]. These behaviour description can be concatenated with AND. The boolean math expressions are [Variables] followed by a "LESS THAN", "GREATER THAN" or "EQUAL TO" and end with an integer or another [Variables]. External Condition is always before Relaxation.
+9. Relaxation (Optional): Specifies when the requirement no longer applies. It starts with "UNTIL" or "WITHIN" and comes always at the end.
+only use [Variables], [Components], [Verbs], [ObjectAttribute], [States] defined below when forming requirements. If there are [Variables], [Components], [Verbs], [Objects], [ObjectAttribute], [States] other than the ones mentioned below then replace them with below elements if they are synonyms. 
+
+**IMPORTANT:** Always maintain same case letters for [Variables], [Components], [Verbs], [Objects], [ObjectAttribute], [Errors] as in the list below, you are not allowed to change their letter case (case-sensitive):
+
+[Variables]: [
+	plausibility_checks, 
+	faults, 
+	unintended_acceleration, 
+	errors, 
+	high_driving_torque
+],
+[Objects]: [
+	acceleration, 
+	deceleration,  
+	plausibility,
+    torque_signals_affecting_requirements_of_other_ECUs,
+    signals,
+    state,
+    states,
+    sensor_signals,
+    torque_signals,
+    Driving_Torque,
+	accessing,      
+    entities,
+    being_transmitted,
+    signals_in_white_list 
+    integrity,
+    Lamp_switch_on_request,
+    received_data,
+	MAC,
+    request,
+    white_list
+],
+
+[Verbs]: [
+    protect,
+    monitor,
+    detect,
+    confirm,
+    drop,
+    generate,
+    transmit,
+	verify,
+    generated,
+    transfer,
+    verifying
+],
+
+[ObjectAttribute]:[
+    dangerous,
+    unintended,
+    loss,
+    of,
+    internal,
+    appropriate,
+    undesired,
+    safe,
+    High,
+	unauthenticated,
+	malicious,
+	detected,
+	spoofed,
+	spoofing
+],
+	
+[Components]: [
+    System,
+    Drive_Pedal,
+    Throttle_Valve,
+    Engine_Control_Unit,
+    Function_Controller,       
+    sensor_system,
+    signal_compound,
+    other_ECUs,
+    Mensor,
+	Navigation_ECU,
+    Cellular_network,
+    Gateway,
+    Power_Switch,
+    Body_Control_ECU,
+    control_signals,
+    Headlamp_system,
+	actuator
+],
+	
+[States]: [
+   safe_state
+]
+
+You can use the following Json formatted examples to generate the results. The results should also be in same format as the samples below. Important: Do not include any additional text or notes outside of the JSON output. do not add any notes or any additional text other than json putput:
+[
+  {
+    "nlp": "The system must stop any unintended loss of acceleration", 
+    "LESS": "THE System SHALL PREVENT unintended loss of acceleration"
+  },
+  {
+    "nlp": "The throttle valve must check its internal sensor signals for plausibility",
+    "LESS": "THE Throttle_Valve SHALL CHECK THE internal sensor_signals OF THE Throttle_Valve FOR plausibility"
+  },
+  {
+    "nlp": "The cellular network must prevent unauthenticated entities from accessing it",
+    "LESS": "THE Cellular_network SHALL PREVENT unauthenticated entities FROM accessing THE Cellular_network" 
+  },
+  { 
+	"nlp": "The engine control unit must detect faults in the sensor system using appropriate plausibility checks", 
+	"LESS": "THE Engine_Control_Unit SHALL DETECT THE faults OF THE sensor_system BY USING appropriate plausibility_checks" 
+  },
+  {
+    "nlp": "the function controller should be monitored and confirmed by the engine control unit",
+    "LESS": "THE Engine_Control_Unit SHALL monitor AND confirm THE Function_Controller"
+  },
+  
+  {
+    "nlp": "The system must stop any hazardous unintended loss of acceleration", 
+    "LESS": "THE System SHALL PREVENT dangerous unintended loss of acceleration"
+  },
+  {
+    "nlp": "Any unintended loss of acceleration should be stopped by The system", 
+    "LESS": "THE System SHALL PREVENT unintended loss of acceleration"
+  },
+   {
+    "nlp": "control signals that are malicious must be detected by the system",
+    "LESS": "THE Navigation_ECU SHALL DETECT malicious control_signals"
+  }
+  
+]
+
+
+Now, convert the following natural language requirement into a LESS requirement:
+[
+  {
+    "nlp": " The system should prevent dangerous unintended acceleration"
+  },
+  {
+    "nlp": " The system should avert hazardous  unintended acceleration"
+  },
+  {
+    "nlp": "Any dangerous unintended deceleration shall be prevented by the system"
+  },
+  {
+    "nlp": "The system should prevent loss of deceleration that is unintended"
+  },
+  {
+    "nlp": "The drive pedal should check the sensor signals of the drive pedal for plausibility"
+  },
+  {
+    "nlp": "The drive pedal must check its internal sensor signals for plausibility "
+  },
+  {
+    "nlp": "The throttle valve shall check the sensor signals of the throttle valve for plausibility "
+  },
+  {
+    "nlp": "The engine control unit should protect torque-related signals affecting other ECUs using a signal compound"
+  },
+  {
+    "nlp": "using appropriate plausibility checks the engine control unit must detect errors in the actuator"
+  },
+  {
+    "nlp": "The engine control unit must check internal actuator signals for plausibility"
+  },
+  {
+    "nlp": "The engine control unit shall detect and confirm any undesired high driving torque state"
+  },
+  {
+    "nlp": "unintended acceleration shall be detected and confirmed by the engine control unit"
+  },
+  {
+    "nlp": "If undesired high driving torque is detected, the engine control unit must switch to a safe state"
+  },
+  {
+    "nlp": "The engine control unit must switch to a safe state, if acceleration is not intended"
+  },
+  {
+    "nlp": "The engine control unit should monitr the function controllr"
+  },
+  {
+    "nlp": "Integrity of the lamp switch on request should be protected against spoofing by the system "
+  },
+  {
+    "nlp": "The navigation ECU must detect control signals that are malicious"
+  },
+  {
+    "nlp": "The navigation ECU should avoid malicious control signals from being transmitted "
+  },
+  {
+    "nlp": "Control signals that are malicious must be detected by the gateway"
+  },
+  {
+    "nlp": "The gateway shall drop any detected malicious control signals"
+  },
+  {
+    "nlp": "The power switch must detect spoofing of the lamp switch-on request by verifying its MAC"
+  },
+  {
+    "nlp": "Lamp switch-on request that are detected as spoofed, should be dropped by the power switch"
+  },
+  {
+    "nlp": "If a request is made, the body control ECU must generate a MAC for the lamp switch-on request"
+  },
+  {
+    "nlp": "The body control ECU shall transmit the generated MAC for a lamp switch-on request along with its own MAC"
+  },
+  {
+    "nlp": "The gateway must not transfer the signals from the navigation ECU to the headlamp system except for those included in the whitelist"
+  }
+]
+
+
