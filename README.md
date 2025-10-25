@@ -41,8 +41,11 @@ More specifically, the repository provides the following artefacts:
 
 With the python application, you can run the entire experimentation workflow as depicted in the the figure below:
 
-![Experimentation Workflow: LESS requirement generated using LLMs followed by test case generation.
-Blocks using LLM prompts are colored green](images/workflow.png)  
+<p align="center">
+  <img src="images/workflow.png" alt="Workflow diagram" width="600"/>
+  <br>
+  <em>Experimentation Workflow: LESS requirement generated using LLMs followed by test case generation. Blocks using LLM prompts are colored green.</em>
+</p>
 
 Additionally, the Repo also contains a wiki section that describes:  
 1. Using the python application to perform experiments.
