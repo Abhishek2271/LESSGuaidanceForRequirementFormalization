@@ -48,7 +48,7 @@ With the python application, you can run the entire experimentation workflow as 
   <em>Experimentation Workflow: LESS requirement generated using LLMs followed by test case generation. Blocks using LLM prompts are colored green.</em>
 </p>
 
-Additionally, the Repo also contains a wiki section that describes:  
+Additionally, the Repo also contains a [Wiki](https://github.com/Abhishek2271/LESSGuaidanceForRequirementFormalization/wiki/Application-Modes-and-Usages) that describes:  
 1. Using the python application to perform experiments.
 2. The artefacts (prompts, experimental results) for both industrial case studies that were implemented (VAD and E-GAS case studies).
 
