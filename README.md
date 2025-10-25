@@ -32,8 +32,8 @@ The scripts, prompts, and the requirement and test generation Python application
 More specifically, the repository provides the following artefacts:  
 
  1. Prompts used during the experiments.   
- 2. Details of the models used.  
-     Results from the experiments — including both raw outputs from all models and aggregated results (e.g., individual error counts).           
+ 2. Details of the models used.
+ 3. Results from the experiments — including both raw outputs from all models and aggregated results (e.g., individual error counts).           
       The raw outputs here not only show the results but also the word document provides analysis of the results. Which lines in the results were correct (exact mataches), incorrect, and why they were incorrect.   
  4. Python application that was used to run the experiments
     locally.
