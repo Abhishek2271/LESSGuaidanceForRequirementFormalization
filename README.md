@@ -28,6 +28,23 @@ Citated as
 
 ---
 
+More specifically, the repository provides the following artefacts:  
+
+ 1. Prompts used during the experiments.   
+ 2. Details of the models used.  
+     Results from the experiments — including both raw outputs from all models and aggregated results (e.g., individual error counts).           
+      The raw outputs here not only show the results but also the word document provides analysis of the results. Which lines in the results were correct (exact mataches), incorrect, and why they were incorrect.   
+ 4. Python application that was used to run the experiments
+    locally.
+
+***Thus, this documentation not only covers the results but also the analysis of the results.***  
+
+With the python application, you can run the entire experimentation workflow as depicted in the the figure below:  
+
+Additionally, the Repo also contains a wiki section that describes:  
+1. Using the python application to perform experiments.
+2. The artefacts (prompts, experimental results) for both industrial case studies that were implemented (VAD and E-GAS case studies).
+
 # Application Modes and Usage
 
 1. **The `requirements.txt` file** contains all libraries required to run the application.#
