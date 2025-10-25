@@ -1,7 +1,7 @@
 ## LESS based requirement and test case generation.
 
-The scripts, prompts, and the requirement and test generation python application in this project supports replicability of the experiments performed in **LESS is more: Guiding LLMs for Formal
-Requirement and Test Case Generation**
+The scripts, prompts, and the requirement and test generation python application in this project support replicability of the experiments performed in **LESS is more: Guiding LLMs for Formal Requirement and Test Case Generation** paper.
+
 
 Paper cited as:
 ```bibtex
@@ -14,11 +14,12 @@ Paper cited as:
   month        = sep,
   publisher    = {Springer},
   series       = {Communications in Computer and Information Science (CCIS)},
-  note         = {To appear},
-  isbn         = {978-3-030-72436-?}, % update when Springer provides
+  volume	     = {2693},
+  isbn         = {978-3-031-07243-6},  % update when Springer provides
   issn         = {1865-0937},
   doi          = {to be assigned},
-  pages        = {372--389},
+  pages		     = {372--389},
+  note         = {Accepted March 2025; conference held September 17--18, 2025; to appear},
   keywords     = {Large Language Models, Controlled Natural Language, Requirements Engineering, Test Case Generation, Verification and Validation},
 }
 ```
