@@ -1,9 +1,0 @@
-1. EGAS_ALL_NLP_LESS_Pair_CORRECT.ess is the LESS specification document that contains:
-	a. LESS vocabulary
-	b. LESS requirements
-
-2. The dynamic_grammar.txt used in validation of generated requirement is derived from EGAS_ALL_NLP_LESS_Pair_CORRECT.ess in this folder
-
-3. EGAS_ALL_NLP_LESS_Pair.json contains manually derived LESS requirements (from EGAS_ALL_NLP_LESS_Pair_CORRECT.ess) with corresponding NL requirements (also manually created).
-
-4. EGAS_case_study_GT.docx is docx containing comments for the requirement and LESS expressions in the EGAS_ALL_NLP_LESS_Pair.json file
