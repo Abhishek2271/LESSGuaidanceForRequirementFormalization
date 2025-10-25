@@ -46,9 +46,13 @@ Paper cited as:
 #### Test case generation
 
 ##### LESS based test case generation
+
 ##### Ground truth
+
 ##### Results from models
 
 ##### NLP based test case generation
+
 ##### Ground truth
+
 ##### Results from models
