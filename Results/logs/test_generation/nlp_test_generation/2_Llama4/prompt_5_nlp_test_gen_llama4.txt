@@ -1,0 +1,273 @@
+You will be given a list of requirements in Natural Language. Your task is to convert these requirements into test cases. 
+
+The test cases should only contain [Variables], [Components], [Verbs], [ObjectAttribute], [States] defined below. 
+
+Variables: [
+	systolic_pressure,
+	diastolic_pressure,
+	default_systolic_pressure,
+	default_diastolic_pressure,
+	diastolic_pressure_limit,
+	start_test,
+	pumps,
+	message,
+	description,
+	compact_drive_first_switch,
+	combination,
+	last_values,
+	ability,
+	default_values_for_pressure_parameters,
+	last_values_manual_mode,
+	openenings_number,
+	temperature_value_of_the_flow_sensors,
+	temperature_of_compact_drive,
+	acoustic_alarm,
+	information_signal
+],
+Verbs: [	
+	start,
+	pause,
+	adjust,
+	inform,
+	display,
+	count,
+	signal,
+	emit,
+	receive,
+	confirm,
+	store,
+	indicate,
+	cancel
+],
+Errors: [
+	s4_error,
+	s8_error,
+	T3_alarm,
+	s7_error,
+	T2_alarm
+],
+Components: [
+	compact_drive,
+	user,
+	clinical_ui,
+	left_epu,
+	right_epu,
+	compact_drive_software,
+	air_mass_balancing_valve,
+	cannulae,
+	system,
+	power_supply_unit
+],
+ObjectAttribute:[
+	engaged,
+	current,
+	invalid,
+	selected,
+	operated
+],
+States: [
+	is_running,
+	is_stopped,
+	bvad_mode,
+	lvad_mode,
+	rvad_mode,
+	logged_in,
+	manual_mode,
+	auto_mode,
+	failed,
+	setting,
+	not_recomended_in_pcm,
+	authorized,
+	unauthorized,
+	removed,
+	active
+]
+
+You can infer [Variables], [Components], [Verbs], [ObjectAttribute], and [States] from the NLP description of the requirement. For the requirements containing state transitions, convert nlp requirements into test cases. 
+
+The antecedents are converted to PRE states, which are formatted as PRE: {[components] or [variable] or [Errors]:{[States]: True or false}}. Consequences are converted to the POST states formatted as POST: {[components] or [variable] or [Errors]:[States]: True or false}, and the corresponding [Components] and [Variables] are converted to the test objects.
+
+Take reference of the below pair of requirements and corresponding test cases in json format.
+
+Important: produce output in similar format, requirements should be followed by corresponding test cases. Do not add any extra text or note in the reply.
+
+[
+   [
+      {
+         "Requirement":"Req_gen0",
+         "RequirementClassification":"SecurityFunctional",
+         "LESS Requirement":"The system must stop any unintended loss of acceleration"
+      },
+      {
+         "Reference":"test-Req_gen0",
+         "Requirement":"Req_gen0",
+         "Testobjects":["System", "acceleration"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"Req_gen1",
+         "RequirementClassification":"SecurityFunctional",
+         "LESS Requirement":"The throttle valve must check its internal sensor signals for plausibility"
+      },
+      {
+         "Reference":"test-Req_gen1",
+         "Requirement":"Req_gen1",
+         "Testobjects":["plausibility", "Throttle_Valve", "sensor_signals"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"Req_gen2",
+         "RequirementClassification":"SecurityFunctional",
+         "LESS Requirement":"The cellular network must prevent unauthenticated entities from accessing it"
+      },
+      {
+         "Reference":"test-Req_gen2",
+         "Requirement":"Req_gen2",
+         "Testobjects":["Cellular_network", "entities", "Cellular_network"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"Req_gen3",
+         "RequirementClassification":"SecurityFunctional",
+         "LESS Requirement":"The engine control unit must detect faults in the sensor system using appropriate plausibility checks"
+      },
+      {
+         "Reference":"test-Req_gen3",
+         "Requirement":"Req_gen3",         "Testobjects":["Engine_Control_Unit","faults","sensor_system","plausibility_checks"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],   
+   [
+      {
+         "Requirement":"Req_gen4",
+         "RequirementClassification":"SecurityFunctional",
+         "LESS Requirement":"the function controller should be monitored and confirmed by the engine control unit"
+      },
+      {
+         "Reference":"test-Req_gen4",
+         "Requirement":"Req_gen4",
+         "Testobjects":["Engine_Control_Unit", "Function_Controller"],
+         "PRE":{},
+         "POST":{}
+      }
+   ],
+   [
+      {
+         "Requirement":"Req_gen5_CUSTOM_CREATED",
+         "RequirementClassification":"SecurityFunctional",
+         "LESS Requirement":"if the engine control_Unit in safe state, system should monitor the function controller"
+      },
+      {
+         "Reference":"test-Req_gen5_CUSTOM_CREATED",
+         "Requirement":"Req_gen5_CUSTOM_CREATED",
+         "Testobjects":["Engine_Control_Unit", "System", "Function_Controller"],
+         "PRE":{"safe_state":true},
+         "POST":{}
+      }
+   ]   
+]
+
+Now, generate test cases for the requirements as below:
+[
+
+    Requirement: Req_SZ_01 
+	RequirementClassification: SafetyGoal
+	{
+
+        The system should prevent dangerous unintended acceleration 
+    }
+
+    Requirement: Req_SZ_03 
+	RequirementClassification: SafetyGoal
+	{
+        Any dangerous unintended deceleration shall be prevented by the system  
+    }    
+	
+	Requirement: Req_SZ_04 
+	RequirementClassification: SafetyGoal
+	{
+		The system should prevent loss of deceleration that is unintended
+	}
+
+    Requirement: SReq_01 
+	RequirementClassification: SafetyFunctional{
+        
+        The drive pedal should check the sensor signals of the drive pedal for plausibility
+    }
+	
+    Requirement: SReq_01 
+	RequirementClassification: SafetyFunctional
+	{
+		The drive pedal must check its internal sensor signals for plausibility
+    }
+
+    Requirement: SReq_02 
+	RequirementClassification: SafetyFunctional
+	{
+        The throttle valve shall check the sensor signals of the throttle valve for plausibility 
+    }
+	
+	Requirement: SReq_04
+	RequirementClassification:	SafetyFunctional
+	{
+		using appropriate plausibility checks the engine control unit must detect errors in the actuator
+	}
+
+    Requirement: SReq_05 
+	RequirementClassification: SafetyFunctional
+	{
+		The engine control unit must check internal actuator signals for plausibility  
+    }    
+
+    Requirement: SReq_05a 
+	RequirementClassification: SafetyFunctional
+	{
+       unintended acceleration shall be detected and confirmed by the engine control unit
+    }
+
+    Requirement: SReq_06a 
+	RequirementClassification: SafetyFunctional
+	{
+        The engine control unit should monitor the function controller   
+	}
+
+    Requirement: SReq_06a2 
+	RequirementClassification: SafetyFunctional
+	{
+        Integrity of the lamp switch on request should be protected against spoofing by the system 
+    }    
+
+    Requirement: SReq_06b 
+	RequirementClassification: SafetyFunctional
+	{
+        The navigation ECU must detect control signals that are malicious
+    }
+	
+    Requirement: SReq_06b2 	
+	RequirementClassification: SafetyFunctional
+	{        
+        The navigation ECU should avoid malicious control signals from being transmitted 
+    } 
+
+    Requirement: SReq_07 	
+	RequirementClassification: SafetyFunctional{
+
+        Control signals that are malicious must be detected by the gateway
+    }
+	
+	Requirement: Req_SEC_ISO10 
+	RequirementClassification: SecurityGoal
+	{			
+		The gateway shall drop any detected malicious control signals 
+	}
+]
